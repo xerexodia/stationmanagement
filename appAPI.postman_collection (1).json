@@ -1,0 +1,3073 @@
+{
+	"info": {
+		"_postman_id": "cf44d524-1ac8-495e-a62f-d53062b18de7",
+		"name": "appAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33245889"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstname\": \"test\",\r\n  \"lastname\": \"Ben Ali\",\r\n  \"username\": \"cchgg\",\r\n  \"password\": \"cc\",\r\n  \"email\": \"ali@example.com\",\r\n  \"region\": \"Tunis\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/client-auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"client-auth",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstname\": \"test\",\r\n  \"lastname\": \"Ben Ali\",\r\n  \"username\": \"ddd\",\r\n  \"password\": \"jfffjjj\",\r\n  \"email\": \"ali@example.com\",\r\n  \"region\": \"Tunis\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/client-auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"client-auth",
+								"register"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 11:40:00 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 409,\n    \"success\": false,\n    \"message\": \"Ce compte existe déjà\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstname\": \"test\",\r\n  \"lastname\": \"Ben Ali\",\r\n  \"username\": \"dhhdd\",\r\n  \"password\": \"jfffjjj\",\r\n  \"email\": \"ali@example.com\",\r\n  \"region\": \"Tunis\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/client-auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"client-auth",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 11:40:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Inscription réussie\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sImlkIjoyMCwic3ViIjoiZGhoZGQiLCJpYXQiOjE3NTExMTA4MjQsImV4cCI6MTc1MTk3NDgyNH0.ji8-8SuVHiImGQ6OwWMkFaeY82DwMqm2tu03MQy77lw\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"cc\",\r\n  \"password\": \"ffcc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/client-auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"client-auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"cc\",\r\n  \"password\": \"cc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/client-auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"client-auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 11:46:46 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Connexion réussie\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sImlkIjoxMywic3ViIjoiY2MiLCJpYXQiOjE3NTExMTEyMDYsImV4cCI6MTc1MTk3NTIwNn0.J_GoTNWsKdeF9_KjMkaYOHGWAhtNH7qT41DXt7Wv1dc\"\n    }\n}"
+				},
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"cc\",\r\n  \"password\": \"ffcc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/client-auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"client-auth",
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 11:47:20 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 401,\n    \"success\": false,\n    \"message\": \"Nom d'utilisateur ou mot de passe incorrect\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "AdminLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 12:09:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Connexion réussie\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExMjU5OSwiZXhwIjoxNzUxOTc2NTk5fQ.WePsX5ky3D_230_QE4vJFqCGLi0sV4gqSiIW7JND2gI\"\n    }\n}"
+				},
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"12g3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 12:10:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 401,\n    \"success\": false,\n    \"message\": \"Nom d'utilisateur ou mot de passe incorrect\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "brand",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExMzUxOSwiZXhwIjoxNzUxOTc3NTE5fQ.mex36PQ9FQsZiThq4fXNd24wSbHNeRmTAMOtLiLJGZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/brands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brands"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"123\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/brands",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brands"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 12:25:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des marques récupérée\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"status\": \"APPROVED\",\n            \"name\": \"Tesla\",\n            \"models\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Model 3\",\n                    \"variants\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Long Range AWD\",\n                            \"batteryCapacity\": 82,\n                            \"chargingSpeed\": 250,\n                            \"maxRange\": 580,\n                            \"plugType\": \"CCS\",\n                            \"currentType\": \"DC\",\n                            \"year\": 2023,\n                            \"power\": 490\n                        }\n                    ]\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Model 4\",\n                    \"variants\": []\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"status\": \"APPROVED\",\n            \"name\": \"BMW\",\n            \"models\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"i4\",\n                    \"variants\": [\n                        {\n                            \"id\": 2,\n                            \"name\": \"eDrive40\",\n                            \"batteryCapacity\": 81,\n                            \"chargingSpeed\": 205,\n                            \"maxRange\": 590,\n                            \"plugType\": \"Type 2\",\n                            \"currentType\": \"AC\",\n                            \"year\": 2022,\n                            \"power\": 340\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"status\": \"APPROVED\",\n            \"name\": \"Volkswagen\",\n            \"models\": [\n                {\n                    \"id\": 4,\n                    \"name\": \"ID.4\",\n                    \"variants\": [\n                        {\n                            \"id\": 5,\n                            \"name\": \"Pro Performance\",\n                            \"batteryCapacity\": 77,\n                            \"chargingSpeed\": 135,\n                            \"maxRange\": 522,\n                            \"plugType\": \"CCS\",\n                            \"currentType\": \"DC\",\n                            \"year\": 2023,\n                            \"power\": 204\n                        }\n                    ]\n                },\n                {\n                    \"id\": 10,\n                    \"name\": \"dtrdr\",\n                    \"variants\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"status\": \"APPROVED\",\n            \"name\": \"Hyundai\",\n            \"models\": [\n                {\n                    \"id\": 5,\n                    \"name\": \"Kona Electric\",\n                    \"variants\": [\n                        {\n                            \"id\": 6,\n                            \"name\": \"64 kWh\",\n                            \"batteryCapacity\": 64,\n                            \"chargingSpeed\": 100,\n                            \"maxRange\": 484,\n                            \"plugType\": \"Type 2\",\n                            \"currentType\": \"AC\",\n                            \"year\": 2021,\n                            \"power\": 204\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 5,\n            \"status\": \"APPROVED\",\n            \"name\": \"Renault\",\n            \"models\": [\n                {\n                    \"id\": 6,\n                    \"name\": \"ZOE\",\n                    \"variants\": [\n                        {\n                            \"id\": 7,\n                            \"name\": \"R135\",\n                            \"batteryCapacity\": 52,\n                            \"chargingSpeed\": 50,\n                            \"maxRange\": 395,\n                            \"plugType\": \"Type 2\",\n                            \"currentType\": \"AC\",\n                            \"year\": 2021,\n                            \"power\": 135\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 10,\n            \"status\": \"PENDING\",\n            \"name\": \"test\",\n            \"models\": []\n        },\n        {\n            \"id\": 11,\n            \"status\": \"APPROVED\",\n            \"name\": \"test edde\",\n            \"models\": []\n        },\n        {\n            \"id\": 12,\n            \"status\": \"APPROVED\",\n            \"name\": \"ffxytyuhg\",\n            \"models\": []\n        },\n        {\n            \"id\": 13,\n            \"status\": \"APPROVED\",\n            \"name\": \"ef\",\n            \"models\": []\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "brands",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExODQzMCwiZXhwIjoxNzUxOTgyNDMwfQ.yWEOTvOz3cYFLlDLw8rbD2BeMNblEO0S_tThEwrUVao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"test2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/brands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brands"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "brands",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/brands",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brands"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 13:53:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Demande de marque enregistrée\",\n    \"data\": {\n        \"id\": 17,\n        \"status\": \"PENDING\",\n        \"name\": \"test2\",\n        \"models\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "models",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExNzcxNCwiZXhwIjoxNzUxOTgxNzE1fQ.daCB1x3WYjGURWysq_T0uwcjD4KqBPnbt6LYuTGb9d4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/models",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"models"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "models",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/models",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"models"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 13:59:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des modèles récupérée\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Model 3\",\n            \"variants\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Long Range AWD\",\n                    \"batteryCapacity\": 82,\n                    \"chargingSpeed\": 250,\n                    \"maxRange\": 580,\n                    \"plugType\": \"CCS\",\n                    \"currentType\": \"DC\",\n                    \"year\": 2023,\n                    \"power\": 490\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Model 4\",\n            \"variants\": []\n        },\n        {\n            \"id\": 3,\n            \"name\": \"i4\",\n            \"variants\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"eDrive40\",\n                    \"batteryCapacity\": 81,\n                    \"chargingSpeed\": 205,\n                    \"maxRange\": 590,\n                    \"plugType\": \"Type 2\",\n                    \"currentType\": \"AC\",\n                    \"year\": 2022,\n                    \"power\": 340\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"name\": \"ID.4\",\n            \"variants\": [\n                {\n                    \"id\": 5,\n                    \"name\": \"Pro Performance\",\n                    \"batteryCapacity\": 77,\n                    \"chargingSpeed\": 135,\n                    \"maxRange\": 522,\n                    \"plugType\": \"CCS\",\n                    \"currentType\": \"DC\",\n                    \"year\": 2023,\n                    \"power\": 204\n                }\n            ]\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Kona Electric\",\n            \"variants\": [\n                {\n                    \"id\": 6,\n                    \"name\": \"64 kWh\",\n                    \"batteryCapacity\": 64,\n                    \"chargingSpeed\": 100,\n                    \"maxRange\": 484,\n                    \"plugType\": \"Type 2\",\n                    \"currentType\": \"AC\",\n                    \"year\": 2021,\n                    \"power\": 204\n                }\n            ]\n        },\n        {\n            \"id\": 6,\n            \"name\": \"ZOE\",\n            \"variants\": [\n                {\n                    \"id\": 7,\n                    \"name\": \"R135\",\n                    \"batteryCapacity\": 52,\n                    \"chargingSpeed\": 50,\n                    \"maxRange\": 395,\n                    \"plugType\": \"Type 2\",\n                    \"currentType\": \"AC\",\n                    \"year\": 2021,\n                    \"power\": 135\n                }\n            ]\n        },\n        {\n            \"id\": 10,\n            \"name\": \"dtrdr\",\n            \"variants\": []\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "variants",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExODQzMCwiZXhwIjoxNzUxOTgyNDMwfQ.yWEOTvOz3cYFLlDLw8rbD2BeMNblEO0S_tThEwrUVao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"test\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/variants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"variants"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "variants",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/variants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"variants"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 14:02:01 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des variantes récupérée avec succès\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Long Range AWD\",\n            \"batteryCapacity\": 82,\n            \"chargingSpeed\": 250,\n            \"maxRange\": 580,\n            \"plugType\": \"CCS\",\n            \"currentType\": \"DC\",\n            \"year\": 2023,\n            \"power\": 490\n        },\n        {\n            \"id\": 2,\n            \"name\": \"eDrive40\",\n            \"batteryCapacity\": 81,\n            \"chargingSpeed\": 205,\n            \"maxRange\": 590,\n            \"plugType\": \"Type 2\",\n            \"currentType\": \"AC\",\n            \"year\": 2022,\n            \"power\": 340\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Pro Performance\",\n            \"batteryCapacity\": 77,\n            \"chargingSpeed\": 135,\n            \"maxRange\": 522,\n            \"plugType\": \"CCS\",\n            \"currentType\": \"DC\",\n            \"year\": 2023,\n            \"power\": 204\n        },\n        {\n            \"id\": 6,\n            \"name\": \"64 kWh\",\n            \"batteryCapacity\": 64,\n            \"chargingSpeed\": 100,\n            \"maxRange\": 484,\n            \"plugType\": \"Type 2\",\n            \"currentType\": \"AC\",\n            \"year\": 2021,\n            \"power\": 204\n        },\n        {\n            \"id\": 7,\n            \"name\": \"R135\",\n            \"batteryCapacity\": 52,\n            \"chargingSpeed\": 50,\n            \"maxRange\": 395,\n            \"plugType\": \"Type 2\",\n            \"currentType\": \"AC\",\n            \"year\": 2021,\n            \"power\": 135\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "vehicles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTExODQzMCwiZXhwIjoxNzUxOTgyNDMwfQ.yWEOTvOz3cYFLlDLw8rbD2BeMNblEO0S_tThEwrUVao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"vehicles"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vehicles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vehicles"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 14:06:47 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des véhicules récupérée avec succès\",\n    \"data\": [\n        {\n            \"id\": 4,\n            \"plateNumber\": \"123TU456\",\n            \"color\": \"Red\",\n            \"client\": {\n                \"id\": 2,\n                \"firstname\": \"Ali\",\n                \"lastname\": \"Ben Salah\",\n                \"username\": null,\n                \"password\": \"pass123\",\n                \"isPremium\": true,\n                \"region\": \"Sousse\",\n                \"isBlocked\": false,\n                \"credits\": 0,\n                \"phoneNumber\": \"22112233\",\n                \"email\": \"ali@example.com\",\n                \"dateOfBirth\": \"1995-04-10\",\n                \"reviews\": [],\n                \"sessions\": [],\n                \"reservations\": [],\n                \"nlate\": 0,\n                \"ncancel\": 0\n            },\n            \"variant\": {\n                \"id\": 2,\n                \"name\": \"eDrive40\",\n                \"batteryCapacity\": 81,\n                \"chargingSpeed\": 205,\n                \"maxRange\": 590,\n                \"plugType\": \"Type 2\",\n                \"currentType\": \"AC\",\n                \"year\": 2022,\n                \"power\": 340\n            }\n        },\n        {\n            \"id\": 6,\n            \"plateNumber\": \"678TN789\",\n            \"color\": \"Grey\",\n            \"client\": {\n                \"id\": 3,\n                \"firstname\": \"Ahmed\",\n                \"lastname\": \"Trabelsi\",\n                \"username\": \"ahmed.t\",\n                \"password\": \"azerty\",\n                \"isPremium\": true,\n                \"region\": \"Sousse\",\n                \"isBlocked\": false,\n                \"credits\": 100,\n                \"phoneNumber\": \"22233444\",\n                \"email\": \"ahmed.t@example.com\",\n                \"dateOfBirth\": \"1996-08-17\",\n                \"reviews\": [],\n                \"sessions\": [],\n                \"reservations\": [],\n                \"nlate\": 0,\n                \"ncancel\": 0\n            },\n            \"variant\": {\n                \"id\": 5,\n                \"name\": \"Pro Performance\",\n                \"batteryCapacity\": 77,\n                \"chargingSpeed\": 135,\n                \"maxRange\": 522,\n                \"plugType\": \"CCS\",\n                \"currentType\": \"DC\",\n                \"year\": 2023,\n                \"power\": 204\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "vehicles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEyMTA4NiwiZXhwIjoxNzUxOTg1MDg2fQ.1QwuCK1p8YxxeFrzG7ADNlXaeTd-scKboUTOvXLtGH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"plateNumber\": \"111TU222\",\r\n  \"color\": \"Black\",\r\n  \"ClientId\": 3,\r\n  \"VariantId\": 2\r\n  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"vehicles"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plateNumber\": \"111TU222\",\r\n  \"color\": \"Black\",\r\n  \"ClientId\": 3,\r\n  \"VariantId\": 2\r\n  \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/vehicles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vehicles"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 14:34:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Véhicule ajouté avec succès\",\n    \"data\": {\n        \"id\": 7,\n        \"plateNumber\": \"111TU222\",\n        \"color\": \"Black\",\n        \"client\": {\n            \"id\": 3,\n            \"firstname\": \"Ahmed\",\n            \"lastname\": \"Trabelsi\",\n            \"username\": \"ahmed.t\",\n            \"password\": \"azerty\",\n            \"isPremium\": true,\n            \"region\": \"Sousse\",\n            \"isBlocked\": false,\n            \"credits\": 100,\n            \"phoneNumber\": \"22233444\",\n            \"email\": \"ahmed.t@example.com\",\n            \"dateOfBirth\": \"1996-08-17\",\n            \"reviews\": [],\n            \"sessions\": [],\n            \"reservations\": [],\n            \"nlate\": 0,\n            \"ncancel\": 0\n        },\n        \"variant\": {\n            \"id\": 2,\n            \"name\": \"eDrive40\",\n            \"batteryCapacity\": 81,\n            \"chargingSpeed\": 205,\n            \"maxRange\": 590,\n            \"plugType\": \"Type 2\",\n            \"currentType\": \"AC\",\n            \"year\": 2022,\n            \"power\": 340\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Stations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEyMTA4NiwiZXhwIjoxNzUxOTg1MDg2fQ.1QwuCK1p8YxxeFrzG7ADNlXaeTd-scKboUTOvXLtGH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/stations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"stations"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Stations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/stations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stations"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 20:42:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des stations récupérée avec succès\",\n    \"data\": [\n        {\n            \"id\": 3,\n            \"name\": \"Station El Manar\",\n            \"description\": \"Station principale avec 3 chargeurs\",\n            \"coordinates\": \"36.8295, 10.1660\",\n            \"stationConfig\": {\n                \"id\": 1,\n                \"priceAC\": 0.3,\n                \"priceDC\": 0.5,\n                \"protocol\": \"OCPI\"\n            },\n            \"chargePoints\": [\n                {\n                    \"id\": 1,\n                    \"coordinates\": \"36.8065, 10.1815\",\n                    \"region\": \"Tunis Centre\",\n                    \"availability\": true,\n                    \"connectors\": [\n                        {\n                            \"id\": 1,\n                            \"currentType\": \"AC\",\n                            \"power\": 22,\n                            \"price\": 0.3\n                        },\n                        {\n                            \"id\": 3,\n                            \"currentType\": \"dc\",\n                            \"power\": 5,\n                            \"price\": 45\n                        }\n                    ],\n                    \"nconnectors\": 3\n                },\n                {\n                    \"id\": 4,\n                    \"coordinates\": \"ffff\",\n                    \"region\": \"ze\",\n                    \"availability\": false,\n                    \"connectors\": [],\n                    \"nconnectors\": 0\n                }\n            ],\n            \"services\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Toilettes\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"café\"\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Station Charguia\",\n            \"description\": \"Station rapide dans la zone industrielle\",\n            \"coordinates\": \"36.858, 10.215\",\n            \"stationConfig\": {\n                \"id\": 1,\n                \"priceAC\": 0.3,\n                \"priceDC\": 0.5,\n                \"protocol\": \"OCPI\"\n            },\n            \"chargePoints\": [],\n            \"services\": []\n        },\n        {\n            \"id\": 5,\n            \"name\": \"test u\",\n            \"description\": \"tzff u\",\n            \"coordinates\": \"efeef u\",\n            \"stationConfig\": {\n                \"id\": 1,\n                \"priceAC\": 0.3,\n                \"priceDC\": 0.5,\n                \"protocol\": \"OCPI\"\n            },\n            \"chargePoints\": [],\n            \"services\": []\n        },\n        {\n            \"id\": 12,\n            \"name\": \"a\",\n            \"description\": \"a\",\n            \"coordinates\": \"a\",\n            \"stationConfig\": {\n                \"id\": 1,\n                \"priceAC\": 0.3,\n                \"priceDC\": 0.5,\n                \"protocol\": \"OCPI\"\n            },\n            \"chargePoints\": [],\n            \"services\": []\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "ComplaintByClientId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEyMTA4NiwiZXhwIjoxNzUxOTg1MDg2fQ.1QwuCK1p8YxxeFrzG7ADNlXaeTd-scKboUTOvXLtGH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/complaints/client/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"complaints",
+						"client",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/complaints/client/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"complaints",
+								"client",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 18:15:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Liste des réclamations du client récupérée avec succès\",\n    \"data\": [\n        {\n            \"id\": 2,\n            \"description\": \"La borne de recharge ne fonctionne pas correctement.\",\n            \"date\": \"2025-06-27\",\n            \"resolved\": true,\n            \"client\": {\n                \"id\": 3,\n                \"firstname\": \"Ahmed\",\n                \"lastname\": \"Trabelsi\",\n                \"username\": \"ahmed.t\",\n                \"password\": \"azerty\",\n                \"isPremium\": true,\n                \"region\": \"Sousse\",\n                \"isBlocked\": false,\n                \"credits\": 100,\n                \"phoneNumber\": \"22233444\",\n                \"email\": \"ahmed.t@example.com\",\n                \"dateOfBirth\": \"1996-08-17\",\n                \"reviews\": [],\n                \"sessions\": [],\n                \"reservations\": [],\n                \"ncancel\": 0,\n                \"nlate\": 0\n            },\n            \"admin\": {\n                \"id\": 5,\n                \"username\": \"superadmin\",\n                \"lastName\": null,\n                \"password\": \"$2a$10$IbiEoDaPaw5NgTT1quQpFua1AKGR2RUOvGo4qrBVTrBec8Oc3DOkG\",\n                \"email\": \"superadmin@example.com\",\n                \"isActive\": true,\n                \"role\": {\n                    \"id\": 1,\n                    \"name\": \"SuperAdmin\",\n                    \"permissions\": 1048575\n                }\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "createComplaints",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEyMTA4NiwiZXhwIjoxNzUxOTg1MDg2fQ.1QwuCK1p8YxxeFrzG7ADNlXaeTd-scKboUTOvXLtGH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\":\"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/complaints/client/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"complaints",
+						"client",
+						"14"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/complaints/client/14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"complaints",
+								"client",
+								"14"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 18:23:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Réclamation ajoutée avec succès\",\n    \"data\": {\n        \"id\": 4,\n        \"description\": \"test\",\n        \"date\": \"2025-06-28\",\n        \"resolved\": false,\n        \"client\": {\n            \"id\": 14,\n            \"firstname\": \"test\",\n            \"lastname\": \"Ben Ali\",\n            \"username\": \"ccgg\",\n            \"password\": \"$2a$10$r0ifEklBmFx7e7W3HUYkBe1s3moky77Z4nAgvS3hvORIGNEvIbSRy\",\n            \"isPremium\": false,\n            \"region\": \"Tunis\",\n            \"isBlocked\": false,\n            \"credits\": 0,\n            \"phoneNumber\": null,\n            \"email\": \"ali@example.com\",\n            \"dateOfBirth\": null,\n            \"reviews\": [],\n            \"sessions\": [],\n            \"reservations\": [],\n            \"ncancel\": 0,\n            \"nlate\": 0\n        },\n        \"admin\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "DeleteComplaints",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEyMTA4NiwiZXhwIjoxNzUxOTg1MDg2fQ.1QwuCK1p8YxxeFrzG7ADNlXaeTd-scKboUTOvXLtGH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/complaints/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"complaints",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/complaints/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"complaints",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 18:29:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Réclamation supprimée avec succès\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "updateClientInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTEzNjI4OSwiZXhwIjoxNzUyMDAwMjg5fQ.zrtOPP1xXxzVdBSjoSmK2p8Z09DKdFf5Nhk0FqqbGGU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"test\",\r\n     \"firstname\": \"Ali u\",\r\n        \"lastname\": \"Ben Salah u\",\r\n        \"email\": \"ali@example.com\",\r\n        \"plateNumber\": \"123TU456\",\r\n           \"dateOfBirth\": \"1995-04-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\": \"test\",\r\n     \"firstname\": \"Ali u\",\r\n        \"lastname\": \"Ben Salah u\",\r\n        \"email\": \"ali@example.com\",\r\n        \"plateNumber\": \"123TU456\",\r\n           \"dateOfBirth\": \"1995-04-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 19:37:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Client mis à jour\",\n    \"data\": {\n        \"id\": 2,\n        \"firstname\": \"Ali u\",\n        \"lastname\": \"Ben Salah u\",\n        \"username\": \"test\",\n        \"password\": \"pass123\",\n        \"isPremium\": true,\n        \"region\": \"Sousse\",\n        \"isBlocked\": false,\n        \"credits\": 0,\n        \"phoneNumber\": null,\n        \"email\": \"ali@example.com\",\n        \"dateOfBirth\": \"1995-04-10\",\n        \"reviews\": [],\n        \"sessions\": [],\n        \"reservations\": [],\n        \"ncancel\": 0,\n        \"nlate\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addModel",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MTk3MSwiZXhwIjoxNzUyMDA1OTcxfQ.Y3IBOXtNSfFQ7VxjyFvfqju20qvTmOxaKULzAqZT0vo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"test 2\",\r\n  \"brand\": {\r\n    \"id\": 1\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/models",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"models"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"test 2\",\r\n  \"brand\": {\r\n    \"id\": 1\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/models",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"models"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 20:25:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Modèle ajouté avec succès\",\n    \"data\": {\n        \"id\": 12,\n        \"name\": \"test 2\",\n        \"variants\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addVariant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Long Range\",\r\n  \"batteryCapacity\": 75.0,\r\n  \"chargingSpeed\": 250.0,\r\n  \"maxRange\": 560.0,\r\n  \"plugType\": \"Type 2\",\r\n  \"currentType\": \"AC\",\r\n  \"year\": 2024,\r\n  \"power\": 200.0,\r\n  \"model\": {\r\n    \"id\": 2\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/variants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"variants"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Long Range\",\r\n  \"batteryCapacity\": 75.0,\r\n  \"chargingSpeed\": 250.0,\r\n  \"maxRange\": 560.0,\r\n  \"plugType\": \"Type 2\",\r\n  \"currentType\": \"AC\",\r\n  \"year\": 2024,\r\n  \"power\": 200.0,\r\n  \"model\": {\r\n    \"id\": 2\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/variants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"variants"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 20:34:18 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Variante ajoutée avec succès\",\n    \"data\": {\n        \"id\": 11,\n        \"name\": \"Long Range\",\n        \"batteryCapacity\": 75,\n        \"chargingSpeed\": 250,\n        \"maxRange\": 560,\n        \"plugType\": \"Type 2\",\n        \"currentType\": \"AC\",\n        \"year\": 2024,\n        \"power\": 200\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "StationById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/stations/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"stations",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stations/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stations",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 20:48:46 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Station trouvée\",\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"Station El Manar\",\n        \"description\": \"Station principale avec 3 chargeurs\",\n        \"coordinates\": \"36.8295, 10.1660\",\n        \"stationConfig\": {\n            \"id\": 1,\n            \"priceAC\": 0.3,\n            \"priceDC\": 0.5,\n            \"protocol\": \"OCPI\"\n        },\n        \"chargePoints\": [\n            {\n                \"id\": 1,\n                \"coordinates\": \"36.8065, 10.1815\",\n                \"region\": \"Tunis Centre\",\n                \"availability\": true,\n                \"connectors\": [\n                    {\n                        \"id\": 1,\n                        \"currentType\": \"AC\",\n                        \"power\": 22,\n                        \"price\": 0.3\n                    },\n                    {\n                        \"id\": 3,\n                        \"currentType\": \"dc\",\n                        \"power\": 5,\n                        \"price\": 45\n                    }\n                ],\n                \"nconnectors\": 3\n            },\n            {\n                \"id\": 4,\n                \"coordinates\": \"ffff\",\n                \"region\": \"ze\",\n                \"availability\": false,\n                \"connectors\": [],\n                \"nconnectors\": 0\n            }\n        ],\n        \"services\": [\n            {\n                \"id\": 3,\n                \"name\": \"Toilettes\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"café\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addReviews",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0NzU4NCwiZXhwIjoxNzUyMDExNTg0fQ.jtnsn96HxD1byTES8Zq1TBCAxURP4sk94jL6N8xlAEA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"comment\": \"Très bon service\",\r\n  \"rating\": 5,\r\n  \"edited\": false,\r\n  \"clientId\": 10,\r\n  \"reservationId\": 2\r\n  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"comment\": \"Très bon service\",\r\n  \"rating\": 5,\r\n  \"edited\": false,\r\n  \"clientId\": 10,\r\n  \"reservationId\": 2\r\n  \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 28 Jun 2025 23:18:47 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Avis ajouté avec succès\",\n    \"data\": {\n        \"id\": 3,\n        \"comment\": \"Très bon service\",\n        \"rating\": 5,\n        \"edited\": false\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addConfReservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tolerance\": 10,\r\n  \"nReservation\": 2,\r\n  \"maxReservation\": 60,\r\n  \"minNoticePeriod\": 30,\r\n  \"cancellationPolicy\": \"FREE_BEFORE_10_MIN\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/config/reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"config",
+						"reservation"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tolerance\": 10,\r\n  \"nReservation\": 2,\r\n  \"maxReservation\": 60,\r\n  \"minNoticePeriod\": 30,\r\n  \"cancellationPolicy\": \"FREE_BEFORE_10_MIN\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/config/reservation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"config",
+								"reservation"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 30 Jun 2025 00:10:18 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Config réservation enregistrée\",\n    \"data\": {\n        \"id\": 1,\n        \"tolerance\": 10,\n        \"maxReservation\": 60,\n        \"minNoticePeriod\": 30,\n        \"cancellationPolicy\": \"FREE_BEFORE_10_MIN\",\n        \"reservations\": null,\n        \"nreservation\": 2\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addConfigSession",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"basePrice\": 1.0,\r\n  \"pricePerMinute\": 0.1,\r\n  \"pricePerKWh\": 0.2\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/config/session",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"config",
+						"session"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"basePrice\": 1.0,\r\n  \"pricePerMinute\": 0.1,\r\n  \"pricePerKWh\": 0.2\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/config/session",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"config",
+								"session"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 30 Jun 2025 00:24:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Config session enregistrée\",\n    \"data\": {\n        \"id\": 3,\n        \"basePrice\": 1,\n        \"pricePerMinute\": 0.1,\n        \"pricePerKWh\": 0.2,\n        \"sessions\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addReservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startsAt\": \"2025-06-30T13:00:00\",\r\n  \"expiresAt\": \"2025-06-30T13:30:00\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reservations?clientId=10&connectorId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reservations"
+					],
+					"query": [
+						{
+							"key": "clientId",
+							"value": "10"
+						},
+						{
+							"key": "connectorId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startsAt\": \"2025-06-30T13:00:00\",\r\n  \"expiresAt\": \"2025-06-30T13:30:00\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reservations?clientId=10&connectorId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "clientId",
+									"value": "10"
+								},
+								{
+									"key": "connectorId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 30 Jun 2025 11:32:20 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"success\": true,\n    \"message\": \"Réservation créée\",\n    \"data\": {\n        \"id\": 5,\n        \"startsAt\": \"2025-06-30T13:00:00\",\n        \"expiresAt\": \"2025-06-30T13:30:00\",\n        \"estimatedPrice\": 3,\n        \"review\": null,\n        \"session\": null,\n        \"reservationConfig\": {\n            \"id\": 1,\n            \"tolerance\": 10,\n            \"maxReservation\": 60,\n            \"minNoticePeriod\": 0,\n            \"cancellationPolicy\": \"FREE_BEFORE_10_MIN\",\n            \"nreservation\": 3\n        },\n        \"penalty\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "StartSession",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/sessions/start?reservationId=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sessions",
+						"start"
+					],
+					"query": [
+						{
+							"key": "reservationId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EndSession",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TdXBlckFkbWluIn1dLCJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc1MTE0MjYwNiwiZXhwIjoxNzUyMDA2NjA2fQ.og0c4kGj9IBBl_L_KqeFfnjY9Yv5yeAn7BXHrZzbsyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/sessions/end/4?energyKWh=6.3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sessions",
+						"end",
+						"4"
+					],
+					"query": [
+						{
+							"key": "energyKWh",
+							"value": "6.3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
