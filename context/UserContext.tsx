@@ -77,7 +77,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
         setSession(null);
         return;
       }
-      console.log("🚀 ~ initializeSession ~ response:", response)
       
       const userFromApi: User = {
         id: String(response.data.client.id),

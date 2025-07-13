@@ -16,8 +16,8 @@
         "bundler": "metro"
       },
       "updates": {
-      "enabled": false
-    }
+        "enabled": false
+      }
     },
     "ios": {
       "supportsTablet": true
@@ -27,16 +27,20 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.xerexodia.MyApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
-   
-
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "8a2c52bc-088b-4405-abf5-c6fecf049a1c"
+      }
+    }
   }
 }
-
