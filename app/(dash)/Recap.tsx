@@ -98,6 +98,8 @@ const RecapScreen = () => {
         startsAt: startsAt,
         expiresAt: expiresAt,
       };
+      console.log("🚀 ~ handleConfirmBooking ~ reservationData:", reservationData)
+      
 
       const response = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}client/reservations?clientId=${user.id}&connectorId=${connector.id}`,

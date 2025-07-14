@@ -93,7 +93,19 @@ const LocationPermissionScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <TouchableOpacity style={{
+        padding:10,
+        backgroundColor:"black",
+        width:40,
+        height:40,
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:20,
+        margin:10
 
+      }} onPress={()=>router.push('/HomeMap')}>
+        <Ionicons name="close" size={20} color={"white"}/>
+      </TouchableOpacity>
       <View style={styles.illustrationContainer}>
         <View style={styles.mapBackground}>
           <View style={styles.locationPin}>
