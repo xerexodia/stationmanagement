@@ -271,29 +271,34 @@ const BookingStep2Screen = () => {
 
   const handleContinue = () => {
     if (selectedTimeSlots.length > 0 && station && chargePoint && connector) {
+      // first and last slot objects
       const firstSlot = timeSlots[selectedTimeSlots[0]];
       const lastSlot =
         timeSlots[selectedTimeSlots[selectedTimeSlots.length - 1]];
 
-      // Create Date objects for the selected date and time
-      const selectedDateTime = new Date(
+      // build Date objects
+      const monthIndex = monthNames.indexOf(monthName); // 0‑based
+      const [startHour, startMin] = firstSlot.startTime.split(":").map(Number);
+      const [endHour, endMin] = lastSlot.endTime.split(":").map(Number);
+
+      const startDateTime = new Date(
         currentYear,
-        monthNames.indexOf(monthName),
+        monthIndex,
         selectedDate,
-        parseInt(firstSlot.startTime.split(":")[0]),
-        parseInt(firstSlot.startTime.split(":")[1])
+        startHour,
+        startMin
       );
 
       const endDateTime = new Date(
         currentYear,
-        monthNames.indexOf(monthName),
+        monthIndex,
         selectedDate,
-        parseInt(lastSlot.endTime.split(":")[0]),
-        parseInt(lastSlot.endTime.split(":")[1])
+        endHour,
+        endMin
       );
 
-      // Format as ISO 8601 strings
-      const startsAt = selectedDateTime.toISOString();
+      // ISO strings
+      const startsAt = startDateTime.toISOString();
       const expiresAt = endDateTime.toISOString();
 
       const bookingData = {
@@ -305,16 +310,15 @@ const BookingStep2Screen = () => {
         carModel: carInfo.model,
         selectedDate,
         selectedTime: `${firstSlot.startTime} - ${lastSlot.endTime}`,
-        selectedDuration: selectedTimeSlots.length * 30, // Total minutes
+        selectedDuration: selectedTimeSlots.length * 30, // minutes
         selectedCharge: firstSlot.charge,
-        selectedPrice: (selectedTimeSlots.length * firstSlot.price).toFixed(2), // Total price
+        selectedPrice: (selectedTimeSlots.length * firstSlot.price).toFixed(2),
         month: monthName,
         year: currentYear,
-        startsAt, // ISO 8601 format
-        expiresAt, // ISO 8601 format
+        startsAt, 
+        expiresAt, 
       };
 
-      // Navigate to RecapScreen with booking data
       router.push({
         pathname: "/Recap",
         params: bookingData,
