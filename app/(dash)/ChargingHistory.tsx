@@ -79,7 +79,7 @@ const ChargingHistoryScreen = () => {
           textColor = "#fff";
           break;
         case "COMPLETED":
-          backgroundColor = "#4CAF50";
+          backgroundColor = "#8c4caf";
           textColor = "#fff";
           break;
         case "CANCELED":
@@ -220,7 +220,7 @@ const ChargingHistoryScreen = () => {
         <View style={styles.stationInfo}>
           <Text style={styles.stationName}>Charging Station #{item.id}</Text>
           <View style={styles.addressContainer}>
-            <Ionicons name="location" size={16} color="#4CAF50" />
+            <Ionicons name="location" size={16} color="#8c4caf" />
             <Text style={styles.addressText}>123 Charging St, City</Text>
           </View>
           <TouchableOpacity style={styles.directionButton}>
@@ -301,7 +301,7 @@ const ChargingHistoryScreen = () => {
   if (loading && !refreshing) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" style={styles.loader} />
+        <ActivityIndicator size="large" color="#8c4caf" style={styles.loader} />
       </SafeAreaView>
     );
   }
@@ -385,8 +385,8 @@ const ChargingHistoryScreen = () => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={["#4CAF50"]}
-              tintColor="#4CAF50"
+              colors={["#8c4caf"]}
+              tintColor="#8c4caf"
             />
           }
         />
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 24,
     paddingVertical: 12,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 8,
   },
   retryButtonText: {
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
   toggleOn: {
     width: 40,
     height: 20,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "flex-end",
@@ -575,7 +575,7 @@ const styles = StyleSheet.create({
   },
   addressText: {
     fontSize: 14,
-    color: "#4CAF50",
+    color: "#8c4caf",
     flex: 1,
   },
   directionButton: {
@@ -584,7 +584,7 @@ const styles = StyleSheet.create({
     top: 20,
     width: 32,
     height: 32,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
@@ -640,7 +640,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 12,
     borderRadius: 8,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   viewDetailsButtonText: {
     color: "#fff",
@@ -654,11 +654,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     backgroundColor: "#fff",
   },
   viewDetailsButtonOutlineText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 14,
     fontWeight: "500",
   },
@@ -669,7 +669,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 12,
     borderRadius: 8,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     gap: 6,
   },
   bookAgainButtonText: {

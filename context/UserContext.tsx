@@ -27,6 +27,7 @@ interface AuthContextType {
   session?: string | null;
   user: User | null;
   isLoading: boolean;
+  setUser: (user: User | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -37,6 +38,7 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
   isLoading: false,
+  setUser: () => null,
 });
 
 export function useSession() {
@@ -136,6 +138,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         session,
         user,
         isLoading: isLoading || false,
+        setUser
       }}
     >
       {children}

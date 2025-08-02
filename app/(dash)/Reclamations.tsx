@@ -60,7 +60,7 @@ const ReclamationScreen = () => {
   ];
 
   const renderIcon = (icon) => {
-    const color = icon.isActive ? '#4CAF50' : '#666';
+    const color = icon.isActive ? '#8c4caf' : '#666';
     
     if (icon.iconType === 'fontawesome') {
       return (
@@ -86,7 +86,7 @@ const ReclamationScreen = () => {
         return {
           text: 'Completed',
           backgroundColor: '#E8F5E8',
-          textColor: '#4CAF50',
+          textColor: '#8c4caf',
           icon: 'checkmark',
         };
       case 'in_progress':
@@ -288,7 +288,7 @@ const ReclamationScreen = () => {
           />
         </View>
         <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options" size={20} color="#4CAF50" />
+          <Ionicons name="options" size={20} color="#8c4caf" />
         </TouchableOpacity>
       </View>
 
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   activeTab: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#8c4caf',
   },
   tabText: {
     fontSize: 14,
@@ -496,7 +496,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#8c4caf',
   },
   viewDetailsButtonText: {
     color: '#fff',
@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#8c4caf',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',

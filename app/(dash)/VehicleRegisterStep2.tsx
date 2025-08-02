@@ -221,7 +221,7 @@ const VehicleRegisterStep2: React.FC = () => {
           style={styles.addVehicleButton}
           onPress={() => setIsAddModalVisible(true)}
         >
-          <Ionicons name="add" size={20} color="#4CAF50" />
+          <Ionicons name="add" size={20} color="#8c4caf" />
           <Text style={styles.addVehicleText}>Add Model</Text>
         </TouchableOpacity>
       </View>
@@ -329,10 +329,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   activeDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   currentDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderWidth: 3,
     borderColor: "#E8F5E8",
   },
@@ -469,14 +469,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#C9E3CC",
     borderWidth: 2,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     borderStyle: "dashed",
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 20,
   },
   addVehicleText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 8,
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f44336",
   },
   submitButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   disabledButton: {
     opacity: 0.7,

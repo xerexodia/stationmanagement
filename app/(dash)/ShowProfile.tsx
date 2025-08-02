@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,82 +9,68 @@ import {
   Switch,
   ScrollView,
   Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import { useRouter } from 'expo-router';
-import { useSession } from '../../context/UserContext';
-
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useRouter } from "expo-router";
+import { useSession } from "../../context/UserContext";
 
 const ShowProfileScreen = () => {
+  const { user, session, updateUser } = useSession();
   const router = useRouter();
   const [appNotifications, setAppNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(false);
 
   const handleVehiclePress = () => {
-
+    router.push("/vehiculeList");
   };
-  
+
   const handleCurrentChargingPress = () => {
-    router.push('/CurrentCharging');
+    router.push("/CurrentCharging");
   };
 
   const handleChargingHistoryPress = () => {
-    router.push('/ChargingHistory');
+    router.push("/ChargingHistory");
   };
-  
+
   const handleLanguagePress = () => {
-    console.log('Language pressed');
-   
+    console.log("Language pressed");
   };
   const { signOut } = useSession();
 
   const handleLogoutPress = async () => {
-   
-    const res = signOut(); 
-
-    
+    const res = signOut();
   };
 
   const handleAboutPress = () => {
-    console.log('About us pressed');
-    
+    console.log("About us pressed");
   };
 
-  const handleInvitePress = () => {
-
-  };
+  const handleInvitePress = () => {};
 
   const handleEditProfile = () => {
-    router.push('/EditProfile');
+    router.push("/EditProfile");
   };
 
   const bottomTabIcons = [
-    { name: 'gas-pump', screen: '/HomeMap', isActive: false, iconType: 'fontawesome' },
-    { name: 'flash', screen: '/Reclamations', isActive: false },
-    { name: 'notifications', screen: '/Notifications', isActive: false },
-    { name: 'person', screen: '/ShowProfile', isActive: true },
+    {
+      name: "gas-pump",
+      screen: "/HomeMap",
+      isActive: false,
+      iconType: "fontawesome",
+    },
+    { name: "flash", screen: "/Reclamations", isActive: false },
+    { name: "notifications", screen: "/Notifications", isActive: false },
+    { name: "person", screen: "/ShowProfile", isActive: true },
   ];
 
   const renderIcon = (icon) => {
-    const color = icon.isActive ? '#4CAF50' : '#666';
-    
-    if (icon.iconType === 'fontawesome') {
-      return (
-        <FontAwesome5
-          name={icon.name}
-          size={24}
-          color={color}
-        />
-      );
+    const color = icon.isActive ? "#8c4caf" : "#666";
+
+    if (icon.iconType === "fontawesome") {
+      return <FontAwesome5 name={icon.name} size={24} color={color} />;
     } else {
-      return (
-        <Ionicons
-          name={icon.name}
-          size={24}
-          color={color}
-        />
-      );
+      return <Ionicons name={icon.name} size={24} color={color} />;
     }
   };
 
@@ -96,16 +82,16 @@ const ShowProfileScreen = () => {
     showSwitch = false,
     switchValue = false,
     onSwitchChange,
-    iconColor = '#4CAF50',
-    showArrow = true
+    iconColor = "#8c4caf",
+    showArrow = true,
   }: {
     icon: any;
     title: any;
     subtitle?: any;
-    onPress?: () => void; // Make it optional
+    onPress?: () => void; 
     showSwitch?: boolean;
     switchValue?: boolean;
-    onSwitchChange?: (value: boolean) => void; // Also optional
+    onSwitchChange?: (value: boolean) => void; 
     iconColor?: string;
     showArrow?: boolean;
   }) => (
@@ -118,7 +104,9 @@ const ShowProfileScreen = () => {
         <View
           style={[
             styles.iconContainer,
-            { backgroundColor: iconColor === '#FF5722' ? '#FFEBEE' : '#E8F5E9' },
+            {
+              backgroundColor: iconColor === "#FF5722" ? "#FFEBEE" : "#E8F5E9",
+            },
           ]}
         >
           <Ionicons name={icon} size={20} color={iconColor} />
@@ -133,12 +121,14 @@ const ShowProfileScreen = () => {
           <Switch
             value={switchValue}
             onValueChange={onSwitchChange}
-            trackColor={{ false: '#E0E0E0', true: '#4CAF50' }}
-            thumbColor={switchValue ? '#fff' : '#fff'}
+            trackColor={{ false: "#E0E0E0", true: "#8c4caf" }}
+            thumbColor={switchValue ? "#fff" : "#fff"}
             ios_backgroundColor="#E0E0E0"
           />
         )}
-        {showArrow && <Ionicons name="chevron-forward" size={20} color="#BDBDBD" />}
+        {showArrow && (
+          <Ionicons name="chevron-forward" size={20} color="#BDBDBD" />
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -146,8 +136,11 @@ const ShowProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={styles.profileInfo}>
@@ -155,11 +148,16 @@ const ShowProfileScreen = () => {
               <Ionicons name="person" size={24} color="#fff" />
             </View>
             <View style={styles.profileText}>
-              <Text style={styles.profileName}>Ibty Account</Text>
-              <Text style={styles.profileEmail}>ibty@gmail.com</Text>
+              <Text style={styles.profileName}>
+                {user?.firstname} {user?.lastname} Account
+              </Text>
+              <Text style={styles.profileEmail}>{user?.email}</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={handleEditProfile}
+          >
             <Ionicons name="pencil" size={16} color="#fff" />
             <Text style={styles.editButtonText}>Edit</Text>
           </TouchableOpacity>
@@ -173,22 +171,22 @@ const ShowProfileScreen = () => {
             subtitle="Update your vehicle info"
             onPress={handleVehiclePress}
           />
-           <View style={styles.separator} />
-           <SettingsItem
+          <View style={styles.separator} />
+          <SettingsItem
             icon="flash"
             title="Current Charging Session"
             subtitle="View your current charging session"
             onPress={handleCurrentChargingPress}
           />
           <View style={styles.separator} />
-           <SettingsItem
+          <SettingsItem
             icon="flash"
             title="Charging Sessions History"
             subtitle="View your charging sessions history"
             onPress={handleChargingHistoryPress}
           />
           <View style={styles.separator} />
-          
+
           <SettingsItem
             icon="notifications-outline"
             title="App notification"
@@ -198,9 +196,9 @@ const ShowProfileScreen = () => {
             onSwitchChange={setAppNotifications}
             showArrow={false}
           />
-          
+
           <View style={styles.separator} />
-          
+
           <SettingsItem
             icon="mail-outline"
             title="Autorise SMS and e-mails"
@@ -210,18 +208,18 @@ const ShowProfileScreen = () => {
             onSwitchChange={setEmailNotifications}
             showArrow={false}
           />
-          
+
           <View style={styles.separator} />
-          
+
           <SettingsItem
             icon="globe-outline"
             title="Language"
             subtitle="Change language"
             onPress={handleLanguagePress}
           />
-          
+
           <View style={styles.separator} />
-          
+
           <SettingsItem
             icon="log-out-outline"
             title="Logout"
@@ -238,9 +236,9 @@ const ShowProfileScreen = () => {
             title="About us"
             onPress={handleAboutPress}
           />
-          
+
           <View style={styles.separator} />
-          
+
           <SettingsItem
             icon="person-add-outline"
             title="Invite other"
@@ -254,7 +252,10 @@ const ShowProfileScreen = () => {
         {bottomTabIcons.map((icon, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.bottomNavItem, icon.isActive && styles.activeNavItem]}
+            style={[
+              styles.bottomNavItem,
+              icon.isActive && styles.activeNavItem,
+            ]}
             onPress={() => router.push(icon.screen)}
           >
             <View style={icon.isActive ? styles.activeNavIcon : null}>
@@ -270,34 +271,34 @@ const ShowProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
   },
   scrollView: {
     flex: 1,
   },
   profileHeader: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#8c4caf",
     marginHorizontal: 16,
     marginTop: 16,
     marginBottom: 24,
     borderRadius: 12,
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   avatarContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
   },
   profileText: {
@@ -305,53 +306,53 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+    fontWeight: "600",
+    color: "#fff",
     marginBottom: 4,
   },
   profileEmail: {
     fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: "rgba(255, 255, 255, 0.8)",
   },
   editButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   editButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     marginLeft: 4,
   },
   settingsSection: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     marginHorizontal: 16,
     marginBottom: 16,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   settingsItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 16,
   },
   settingsItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   iconContainer: {
     width: 40,
     height: 40,
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
   },
   textContainer: {
@@ -359,49 +360,48 @@ const styles = StyleSheet.create({
   },
   settingsTitle: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#212121',
+    fontWeight: "500",
+    color: "#212121",
     marginBottom: 2,
   },
   settingsSubtitle: {
     fontSize: 14,
-    color: '#757575',
+    color: "#757575",
   },
   settingsItemRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   separator: {
     height: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: "#F0F0F0",
     marginLeft: 68,
   },
   bottomNav: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    backgroundColor: "#fff",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderTopWidth: 1,
-    borderTopColor: '#E5E5E5',
+    borderTopColor: "#E5E5E5",
   },
   bottomNavItem: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 8,
   },
   activeNavItem: {
     // Additional styling for active item if needed
   },
   activeNavIcon: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: "#E8F5E9",
     borderRadius: 20,
     width: 32,
     height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
 export default ShowProfileScreen;
-

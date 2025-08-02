@@ -148,7 +148,7 @@ const RecapScreen = () => {
   const getChargeIcon = (charge) => "⚡";
 
   const getChargeColor = (charge) => {
-    if (charge >= 70) return "#4CAF50";
+    if (charge >= 70) return "#8c4caf";
     if (charge >= 40) return "#FF9800";
     return "#FF9800";
   };
@@ -158,7 +158,7 @@ const RecapScreen = () => {
   if (!station || !chargePoint || !connector) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#8c4caf" />
         <Text style={styles.errorText}>Loading booking details...</Text>
       </SafeAreaView>
     );
@@ -213,7 +213,7 @@ const RecapScreen = () => {
       <ScrollView style={styles.content}>
         <View style={styles.summaryCard}>
           <View style={styles.cardHeader}>
-            <Ionicons name="calendar-outline" size={24} color="#4CAF50" />
+            <Ionicons name="calendar-outline" size={24} color="#8c4caf" />
             <Text style={styles.cardHeaderTitle}>Booking Details</Text>
           </View>
 
@@ -308,7 +308,7 @@ const RecapScreen = () => {
           onPress={handleEditReservation}
           disabled={isLoading}
         >
-          <Ionicons name="pencil-outline" size={20} color="#4CAF50" />
+          <Ionicons name="pencil-outline" size={20} color="#8c4caf" />
           <Text style={styles.editButtonText}>Edit</Text>
         </TouchableOpacity>
 
@@ -403,10 +403,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   activeStep: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   completedStep: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   stepLabel: {
     fontSize: 12,
@@ -414,11 +414,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   activeStepLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   completedStepLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   progressLine: {
@@ -428,7 +428,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   completedLine: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   content: {
     flex: 1,
@@ -504,12 +504,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     backgroundColor: "#fff",
     opacity: 1,
   },
   editButtonText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 8,
@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 16,
     borderRadius: 25,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   disabledButton: {
     backgroundColor: "#A5D6A7",

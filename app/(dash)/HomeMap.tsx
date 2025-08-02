@@ -216,11 +216,6 @@ const HomeMapScreen = () => {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.logoText}>LOGO</Text>
-        <TouchableOpacity style={styles.vehicleSelector}>
-          <Ionicons name="car" size={16} color="#4CAF50" />
-          <Text style={styles.vehicleText}>{selectedVehicle}</Text>
-          <Ionicons name="chevron-forward" size={16} color="#666" />
-        </TouchableOpacity>
       </View>
 
       {/* Search */}
@@ -233,7 +228,7 @@ const HomeMapScreen = () => {
           <Text style={styles.searchInput}>Search location...</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options" size={20} color="#4CAF50" />
+          <Ionicons name="options" size={20} color="#8c4caf" />
         </TouchableOpacity>
       </View>
 
@@ -304,12 +299,12 @@ const HomeMapScreen = () => {
               <View style={styles.stationTitleContainer}>
                 <Text style={styles.stationName}>{selectedStation?.name}</Text>
                 <TouchableOpacity style={styles.directionsButton}>
-                  <Ionicons name="navigate" size={20} color="#4CAF50" />
+                  <Ionicons name="navigate" size={20} color="#8c4caf" />
                 </TouchableOpacity>
               </View>
 
               <View style={styles.stationAddressContainer}>
-                <Ionicons name="location-outline" size={16} color="#4CAF50" />
+                <Ionicons name="location-outline" size={16} color="#8c4caf" />
                 <Text style={styles.stationAddress}>
                   {selectedStation?.address}
                 </Text>
@@ -363,7 +358,7 @@ const HomeMapScreen = () => {
                   <Text style={styles.chargerTypesText}>
                     {selectedStation?.chargerTypes} types of chargers
                   </Text>
-                  <Ionicons name="chevron-forward" size={16} color="#4CAF50" />
+                  <Ionicons name="chevron-forward" size={16} color="#8c4caf" />
                 </TouchableOpacity>
               </View>
 
@@ -391,7 +386,7 @@ const HomeMapScreen = () => {
       {/* Bottom Nav */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
-          <FontAwesome5 name="gas-pump" size={24} color="#4CAF50" />
+          <FontAwesome5 name="gas-pump" size={24} color="#8c4caf" />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.navItem}
@@ -445,7 +440,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   logoText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
     fontSize: 14,
   },
@@ -560,7 +555,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderWidth: 3,
     borderColor: "#fff",
     shadowColor: "#000",
@@ -644,7 +639,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   ratingContainer: {
@@ -699,7 +694,7 @@ const styles = StyleSheet.create({
   },
   chargerTypesText: {
     fontSize: 14,
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   actionButtons: {
@@ -711,20 +706,20 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     alignItems: "center",
     justifyContent: "center",
   },
   viewStationText: {
     fontSize: 16,
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   bookButton: {
     flex: 1,
     paddingVertical: 14,
     borderRadius: 25,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     alignItems: "center",
     justifyContent: "center",
   },

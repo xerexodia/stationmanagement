@@ -311,10 +311,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   activeDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   currentDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderWidth: 3,
     borderColor: "#E8F5E8",
   },
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     marginTop: 40,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: "center",
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   successIcon: {
     width: 80,
     height: 80,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   successTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#4CAF50",
+    color: "#8c4caf",
     textAlign: "center",
     marginBottom: 12,
   },
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   continueButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingVertical: 16,
     paddingHorizontal: 40,
     borderRadius: 12,

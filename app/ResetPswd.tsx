@@ -154,7 +154,7 @@ const ResetPassword = () => {
         
         {/* Security Info */}
         <View style={styles.infoContainer}>
-          <Ionicons name="shield-checkmark" size={24} color="#4CAF50" />
+          <Ionicons name="shield-checkmark" size={24} color="#8c4caf" />
           <Text style={styles.infoText}>
             Choose a strong password with at least 6 characters for better security.
           </Text>
@@ -163,7 +163,7 @@ const ResetPassword = () => {
         {/* Email Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="mail-outline" size={20} color="#4CAF50" />
+            <Ionicons name="mail-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -182,7 +182,7 @@ const ResetPassword = () => {
         {/* New Password Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="lock-closed-outline" size={20} color="#4CAF50" />
+            <Ionicons name="lock-closed-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -211,7 +211,7 @@ const ResetPassword = () => {
         {/* Confirm New Password Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="lock-closed-outline" size={20} color="#4CAF50" />
+            <Ionicons name="lock-closed-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -244,7 +244,7 @@ const ResetPassword = () => {
             <Ionicons 
               name={newPassword.length >= 6 ? "checkmark-circle" : "ellipse-outline"} 
               size={16} 
-              color={newPassword.length >= 6 ? "#4CAF50" : "#999"} 
+              color={newPassword.length >= 6 ? "#8c4caf" : "#999"} 
             />
             <Text style={[
               styles.requirementText,
@@ -257,7 +257,7 @@ const ResetPassword = () => {
             <Ionicons 
               name={newPassword === confirmNewPassword && newPassword.length > 0 ? "checkmark-circle" : "ellipse-outline"} 
               size={16} 
-              color={newPassword === confirmNewPassword && newPassword.length > 0 ? "#4CAF50" : "#999"} 
+              color={newPassword === confirmNewPassword && newPassword.length > 0 ? "#8c4caf" : "#999"} 
             />
             <Text style={[
               styles.requirementText,
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   requirementMet: {
-    color: '#4CAF50',
+    color: '#8c4caf',
   },
   resetButton: {
     backgroundColor: Colors.green,

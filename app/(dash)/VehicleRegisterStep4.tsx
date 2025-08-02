@@ -117,9 +117,9 @@ const VehicleRegisterStep4 = () => {
           max={1500}
           step={25}
           onValuesChange={(values) => setBatteryRange(values)}
-          selectedStyle={{ backgroundColor: '#4CAF50' }}
+          selectedStyle={{ backgroundColor: '#8c4caf' }}
           unselectedStyle={{ backgroundColor: '#E5E5E5' }}
-          markerStyle={{ backgroundColor: '#4CAF50' }}
+          markerStyle={{ backgroundColor: '#8c4caf' }}
           containerStyle={{ height: 40 }}
           sliderLength={300}
         />
@@ -180,9 +180,9 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
   },
-  activeDot: { backgroundColor: '#4CAF50' },
+  activeDot: { backgroundColor: '#8c4caf' },
   currentDot: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#8c4caf',
     borderWidth: 3,
     borderColor: '#E8F5E8',
   },
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
   },
   connectorSelected: {
     backgroundColor: '#E8F5E8',
-    borderColor: '#4CAF50',
+    borderColor: '#8c4caf',
   },
   connectorLabel: {
     marginTop: 6,

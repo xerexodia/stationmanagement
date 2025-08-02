@@ -197,7 +197,7 @@ const Signup = () => {
         {/* First Name Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="person-outline" size={20} color="#4CAF50" />
+            <Ionicons name="person-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -213,7 +213,7 @@ const Signup = () => {
         {/* Last Name Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="person-outline" size={20} color="#4CAF50" />
+            <Ionicons name="person-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -229,7 +229,7 @@ const Signup = () => {
         {/* Username Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="at-outline" size={20} color="#4CAF50" />
+            <Ionicons name="at-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -245,7 +245,7 @@ const Signup = () => {
         {/* Email Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="mail-outline" size={20} color="#4CAF50" />
+            <Ionicons name="mail-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -262,7 +262,7 @@ const Signup = () => {
         {/* Region Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="location-outline" size={20} color="#4CAF50" />
+            <Ionicons name="location-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -276,7 +276,7 @@ const Signup = () => {
         {/* Password Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="lock-closed-outline" size={20} color="#4CAF50" />
+            <Ionicons name="lock-closed-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -304,7 +304,7 @@ const Signup = () => {
         {/* Confirm Password Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="lock-closed-outline" size={20} color="#4CAF50" />
+            <Ionicons name="lock-closed-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -339,7 +339,7 @@ const Signup = () => {
             <Ionicons
               name={acceptTerms ? "checkbox" : "checkbox-outline"}
               size={20}
-              color={acceptTerms ? "#4CAF50" : "#999"}
+              color={acceptTerms ? "#8c4caf" : "#999"}
             />
           </View>
           <Text style={styles.termsText}>

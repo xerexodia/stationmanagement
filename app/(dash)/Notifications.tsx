@@ -35,7 +35,7 @@ const NotificationsScreen = () => {
       time: '5 min',
       date: 'today',
       icon: 'calendar',
-      iconColor: '#4CAF50',
+      iconColor: '#8c4caf',
       iconBg: '#E8F5E8',
     },
     {
@@ -79,7 +79,7 @@ const NotificationsScreen = () => {
       time: '5 min',
       date: 'yesterday',
       icon: 'calendar',
-      iconColor: '#4CAF50',
+      iconColor: '#8c4caf',
       iconBg: '#E8F5E8',
     },
   ]);
@@ -92,7 +92,7 @@ const NotificationsScreen = () => {
   ];
 
   const renderIcon = (icon) => {
-    const color = icon.isActive ? '#4CAF50' : '#666';
+    const color = icon.isActive ? '#8c4caf' : '#666';
     
     if (icon.iconType === 'fontawesome') {
       return (

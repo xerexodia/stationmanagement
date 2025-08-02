@@ -197,7 +197,7 @@ const CurrentChargingScreen = () => {
   if (loading && !reservation) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" style={styles.loader} />
+        <ActivityIndicator size="large" color="#8c4caf" style={styles.loader} />
       </SafeAreaView>
     );
   }
@@ -304,7 +304,7 @@ const CurrentChargingScreen = () => {
             icon="card-outline"
             label="Estimated cost"
             value={`${reservation.estimatedPrice.toFixed(2)} TND`}
-            iconColor="#4CAF50"
+            iconColor="#8c4caf"
           />
         </View>
 
@@ -399,7 +399,7 @@ const CircularProgress = ({ percentage, size = 200 }) => {
         style={[
           styles.progressRing,
           {
-            borderColor: percentage === 100 ? "#4CAF50" : "#4CAF50",
+            borderColor: percentage === 100 ? "#8c4caf" : "#8c4caf",
             borderWidth: percentage === 100 ? 6 : 4,
           },
         ]}
@@ -423,7 +423,7 @@ const BatteryCard = ({ batteryLevel }) => (
 );
 
 // Component for info card
-const InfoCard = ({ icon, label, value, iconColor = "#4CAF50" }) => (
+const InfoCard = ({ icon, label, value, iconColor = "#8c4caf" }) => (
   <View style={styles.infoCard}>
     <Ionicons name={icon} size={20} color={iconColor} />
     <Text style={styles.infoLabel}>{label}</Text>
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 24,
     paddingVertical: 12,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 8,
   },
   retryButtonText: {
@@ -522,7 +522,7 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: 90,
     borderWidth: 4,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     borderStyle: "solid",
     backgroundColor: "transparent",
   },
@@ -600,14 +600,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   batteryInner: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     width: "100%",
     borderRadius: 2,
   },
   batteryPercentage: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#4CAF50",
+    color: "#8c4caf",
   },
   batteryLabel: {
     fontSize: 12,
@@ -658,7 +658,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   stopButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: "center",
@@ -687,7 +687,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
@@ -695,13 +695,13 @@ const styles = StyleSheet.create({
   completionPercentage: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#4CAF50",
+    color: "#8c4caf",
     marginBottom: 8,
   },
   completionTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#4CAF50",
+    color: "#8c4caf",
     marginBottom: 20,
   },
   completionDetails: {
@@ -723,7 +723,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   validateButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 40,

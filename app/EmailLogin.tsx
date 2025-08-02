@@ -114,7 +114,7 @@ const EmailLogin = () => {
         {/* Email Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="person-outline" size={20} color="#4CAF50" />
+            <Ionicons name="person-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}
@@ -131,7 +131,7 @@ const EmailLogin = () => {
         {/* Password Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputIcon}>
-            <Ionicons name="lock-closed-outline" size={20} color="#4CAF50" />
+            <Ionicons name="lock-closed-outline" size={20} color="#8c4caf" />
           </View>
           <TextInput
             style={styles.textInput}

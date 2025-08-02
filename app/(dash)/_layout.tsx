@@ -26,6 +26,7 @@ const DashLayout = () => {
       <Stack.Screen name="BookingStep1" />
       <Stack.Screen name="BookingStep2" />
       <Stack.Screen name="CurrentCharging" />
+      <Stack.Screen name="vehiculeList" />
     </Stack>
   );
 };

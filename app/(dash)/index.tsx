@@ -340,7 +340,7 @@ const VehicleRegisterStep1 = () => {
   if (isLoading) {
     return (
       <SafeAreaView style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#8c4caf" />
       </SafeAreaView>
     );
   }
@@ -402,7 +402,7 @@ const VehicleRegisterStep1 = () => {
         style={styles.addButton}
         onPress={() => setIsAddModalVisible(true)}
       >
-        <Ionicons name="add" size={24} color="#4CAF50" />
+        <Ionicons name="add" size={24} color="#8c4caf" />
         <Text style={styles.addButtonText}>Add Vehicle Brand</Text>
       </TouchableOpacity>
 
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   retryButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
@@ -671,11 +671,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     borderStyle: "dashed",
   },
   addButtonText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 10,
@@ -722,7 +722,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f44336",
   },
   submitButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   disabledButton: {
     opacity: 0.7,

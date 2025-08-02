@@ -160,7 +160,7 @@ const StationListScreen = () => {
             onPress={handleFilterPress}
             activeOpacity={0.7}
           >
-            <Ionicons name="options" size={20} color="#4CAF50" />
+            <Ionicons name="options" size={20} color="#8c4caf" />
           </TouchableOpacity>
         </View>
       </View>

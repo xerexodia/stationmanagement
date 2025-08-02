@@ -337,7 +337,7 @@ const BookingStep2Screen = () => {
   };
 
   const getChargeColor = (charge) => {
-    if (charge >= 70) return "#4CAF50";
+    if (charge >= 70) return "#8c4caf";
     if (charge >= 40) return "#FF9800";
     return "#FF9800";
   };
@@ -358,7 +358,7 @@ const BookingStep2Screen = () => {
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#8c4caf" />
       </SafeAreaView>
     );
   }
@@ -442,7 +442,7 @@ const BookingStep2Screen = () => {
         {/* Booking Summary */}
         <View style={styles.summaryContainer}>
           <View style={styles.summaryItem}>
-            <Ionicons name="location" size={16} color="#4CAF50" />
+            <Ionicons name="location" size={16} color="#8c4caf" />
             <Text style={styles.summaryText}>{station.name}</Text>
           </View>
 
@@ -707,21 +707,21 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   activeStep: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   completedStep: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   stepLabel: {
     fontSize: 12,
     color: "#999",
   },
   activeStepLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   completedStepLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   progressLine: {
@@ -731,7 +731,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   completedLine: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   content: {
     flex: 1,
@@ -773,7 +773,7 @@ const styles = StyleSheet.create({
   },
   timeSlotsPriceText: {
     fontSize: 14,
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
     marginTop: 5,
   },
@@ -831,11 +831,11 @@ const styles = StyleSheet.create({
     borderRadius: 22,
   },
   selectedDateCell: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   todayCell: {
     borderWidth: 2,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
   },
   otherMonthCell: {
     opacity: 0.3,
@@ -850,7 +850,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   todayText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   otherMonthText: {
@@ -876,7 +876,7 @@ const styles = StyleSheet.create({
   },
   selectedTimeSlot: {
     backgroundColor: "#E8F5E9",
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     borderWidth: 2,
     borderRadius: 8,
   },
@@ -903,7 +903,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   selectedTimeText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   chargeInfo: {
@@ -917,10 +917,10 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   selectedChargeText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
   },
   selectedChargeIcon: {
-    color: "#4CAF50",
+    color: "#8c4caf",
   },
   priceText: {
     fontSize: 14,
@@ -928,7 +928,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   selectedPriceText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
   },
   bottomContainer: {
     paddingHorizontal: 20,
@@ -937,7 +937,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#E0E0E0",
   },
   continueButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingVertical: 16,
     borderRadius: 25,
     alignItems: "center",
@@ -960,7 +960,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 8,

@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import { SessionProvider, useSession } from "../context/UserContext";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   return (
@@ -25,7 +26,7 @@ function Root() {
   }
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -44,6 +45,6 @@ function Root() {
           <Stack.Screen name="+not-found" />
         </Stack.Protected>
       </Stack>
-    </>
+    </SafeAreaView>
   );
 }

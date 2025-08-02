@@ -158,13 +158,13 @@ const AddReclamationScreen = () => {
               <View style={styles.uploadContent}>
                 {attachedFile ? (
                   <View style={styles.filePreview}>
-                    <Ionicons name="document-attach" size={40} color="#4CAF50" />
+                    <Ionicons name="document-attach" size={40} color="#8c4caf" />
                     <Text style={styles.fileName}>{attachedFile.fileName || 'Fichier sélectionné'}</Text>
                   </View>
                 ) : (
                   <>
                     <View style={styles.uploadIcon}>
-                      <Ionicons name="image-outline" size={40} color="#4CAF50" />
+                      <Ionicons name="image-outline" size={40} color="#8c4caf" />
                     </View>
                     <Text style={styles.uploadText}>Cliquer pour ajouter</Text>
                     <Text style={styles.uploadSubtext}>un fichier</Text>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   uploadContainer: {
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: '#4CAF50',
+    borderColor: '#8c4caf',
     borderStyle: 'dashed',
     borderRadius: 8,
     minHeight: 120,
@@ -288,12 +288,12 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     fontSize: 16,
-    color: '#4CAF50',
+    color: '#8c4caf',
     fontWeight: '500',
   },
   uploadSubtext: {
     fontSize: 16,
-    color: '#4CAF50',
+    color: '#8c4caf',
     fontWeight: '500',
   },
   filePreview: {
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   submitButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#8c4caf',
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 30,

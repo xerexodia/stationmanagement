@@ -240,7 +240,7 @@ const VehicleRegisterStep3: React.FC = () => {
         style={styles.addButton}
         onPress={() => setIsAddModalVisible(true)}
       >
-        <Ionicons name="add" size={24} color="#4CAF50" />
+        <Ionicons name="add" size={24} color="#8c4caf" />
         <Text style={styles.addButtonText}>Add Variant</Text>
       </TouchableOpacity>
 
@@ -465,10 +465,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   activeDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   currentDot: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     borderWidth: 3,
     borderColor: "#E8F5E8",
   },
@@ -521,8 +521,8 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
   },
   selectedVersionItem: {
-    backgroundColor: "#4CAF50",
-    borderColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
+    borderColor: "#8c4caf",
   },
   versionText: {
     fontSize: 16,
@@ -543,11 +543,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     borderStyle: "dashed",
   },
   addButtonText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 10,
@@ -639,7 +639,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f44336",
   },
   submitButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   disabledButton: {
     opacity: 0.6,

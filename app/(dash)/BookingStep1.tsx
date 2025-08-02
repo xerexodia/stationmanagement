@@ -115,7 +115,7 @@ const BookingStep1Screen = () => {
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#8c4caf" />
       </SafeAreaView>
     );
   }
@@ -197,7 +197,7 @@ const BookingStep1Screen = () => {
         <View style={styles.content}>
           {/* Station Address */}
           <View style={styles.addressContainer}>
-            <Ionicons name="location" size={20} color="#4CAF50" />
+            <Ionicons name="location" size={20} color="#8c4caf" />
             <Text style={styles.addressText}>{station.name}</Text>
           </View>
 
@@ -219,7 +219,7 @@ const BookingStep1Screen = () => {
 
           <TouchableOpacity style={styles.changeCarButton}>
             <Text style={styles.changeCarText}>Change your car</Text>
-            <Ionicons name="chevron-down" size={16} color="#4CAF50" />
+            <Ionicons name="chevron-down" size={16} color="#8c4caf" />
           </TouchableOpacity>
 
           {/* Charge Points Selection */}
@@ -247,7 +247,7 @@ const BookingStep1Screen = () => {
                       size={20}
                       color={
                         selectedChargePoint?.id === chargePoint.id
-                          ? "#4CAF50"
+                          ? "#8c4caf"
                           : "#666"
                       }
                     />
@@ -315,9 +315,9 @@ const BookingStep1Screen = () => {
               maximumValue={100}
               value={chargeLevel}
               onValueChange={setChargeLevel}
-              minimumTrackTintColor="#4CAF50"
+              minimumTrackTintColor="#8c4caf"
               maximumTrackTintColor="#E0E0E0"
-              thumbTintColor="#4CAF50"
+              thumbTintColor="#8c4caf"
             />
             <View style={styles.sliderLabels}>
               <Text style={styles.sliderLabel}>25%</Text>
@@ -405,14 +405,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   activeStep: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   stepLabel: {
     fontSize: 12,
     color: "#999",
   },
   activeStepLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   progressLine: {
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
   },
   changeCarButton: {
     flexDirection: "row",
@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   changeCarText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontSize: 14,
     marginRight: 5,
   },
@@ -515,7 +515,7 @@ const styles = StyleSheet.create({
     borderColor: "#E0E0E0",
   },
   selectedChargePointCard: {
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     backgroundColor: "#F1F8E9",
   },
   chargePointHeader: {
@@ -530,7 +530,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   selectedChargePointText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   chargePointRegion: {
@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
     borderColor: "#E0E0E0",
   },
   selectedConnectorCard: {
-    borderColor: "#4CAF50",
+    borderColor: "#8c4caf",
     backgroundColor: "#E8F5E9",
   },
   connectorType: {
@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   selectedConnectorText: {
-    color: "#4CAF50",
+    color: "#8c4caf",
   },
   connectorPower: {
     fontSize: 12,
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   },
   connectorPrice: {
     fontSize: 12,
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   sliderContainer: {
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
     color: "#999",
   },
   activeSliderLabel: {
-    color: "#4CAF50",
+    color: "#8c4caf",
     fontWeight: "600",
   },
   bottomContainer: {
@@ -614,7 +614,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#E0E0E0",
   },
   continueButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingVertical: 16,
     borderRadius: 25,
     alignItems: "center",
@@ -634,7 +634,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8c4caf",
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 8,
