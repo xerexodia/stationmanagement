@@ -22,7 +22,6 @@ import { useSession } from "../../context/UserContext";
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const HomeMapScreen = () => {
-  // Use useLocalSearchParams and useRouter for Expo Router
   const params = useLocalSearchParams();
   const router = useRouter();
   const getUserLocation = () => {

@@ -47,9 +47,8 @@ const CurrentChargingScreen = () => {
   const [batteryLevel, setBatteryLevel] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState("00:00:00");
   const [energyConsumed, setEnergyConsumed] = useState(0);
-  const [totalDuration, setTotalDuration] = useState(0); // Total session duration in seconds
+  const [totalDuration, setTotalDuration] = useState(0);
 
-  // Format time as HH:MM:SS
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -303,7 +302,7 @@ const CurrentChargingScreen = () => {
           <InfoCard
             icon="card-outline"
             label="Estimated cost"
-            value={`${reservation.estimatedPrice.toFixed(2)} TND`}
+            value={`${reservation?.estimatedPrice?.toFixed(2)} TND`}
             iconColor="#8c4caf"
           />
         </View>
@@ -312,7 +311,7 @@ const CurrentChargingScreen = () => {
         <View style={styles.timeRemainingContainer}>
           <Ionicons name="alarm-outline" size={20} color="#FF9500" />
           <Text style={styles.timeRemainingText}>
-            {calculateTimeRemaining(reservation.expiresAt)} remaining
+            {calculateTimeRemaining(reservation?.expiresAt)} remaining
           </Text>
         </View>
 
@@ -363,7 +362,7 @@ const CurrentChargingScreen = () => {
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Total cost:</Text>
                 <Text style={styles.detailValue}>
-                  {reservation.estimatedPrice.toFixed(2)} TND
+                  {reservation?.estimatedPrice?.toFixed(2)} TND
                 </Text>
               </View>
               <View style={styles.detailRow}>

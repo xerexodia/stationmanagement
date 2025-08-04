@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -12,15 +12,20 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { useSession } from "../../context/UserContext";
 
 const { width } = Dimensions.get("window");
 
 const BookingStep2Screen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const station = params.station ? JSON.parse(params.station as string) : null;
+  const { session } = useSession();
+  const [reservations, setReservations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Parse the data from params
-  const station = params.station ? JSON.parse(params.station as string) : null;
   const chargePoint = params.chargePoint
     ? JSON.parse(params.chargePoint as string)
     : null;
@@ -40,14 +45,75 @@ const BookingStep2Screen = () => {
     new Date().toLocaleString("default", { month: "long" })
   );
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  // Current date for comparison
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonthIndex = currentDate.getMonth() + 1;
+  const currentYearValue = currentDate.getFullYear();
+  const currentHours = currentDate.getHours();
+  const currentMinutes = currentDate.getMinutes();
 
   // Create car info object from received data
   const carInfo = {
     brand: carBrand,
     model: `${carModel} - ${carVersion}`,
   };
+
+  // Fetch reservations data
+  useEffect(() => {
+    const fetchStationDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `${process.env.EXPO_PUBLIC_API_URL}client/reservations/station/${station.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session}`,
+            },
+          }
+        );
+
+        const responseText = await response.text();
+
+        if (!responseText) {
+          if (response.ok) {
+            throw new Error("Station data not available");
+          }
+          throw new Error("Server returned empty response");
+        }
+
+        let parsedData;
+        try {
+          parsedData = JSON.parse(responseText);
+        } catch (parseError) {
+          console.error("JSON parsing error:", parseError);
+          throw new Error("Invalid server response format");
+        }
+
+        if (!response.ok) {
+          const errorMessage =
+            parsedData.message ||
+            parsedData.error ||
+            `Server returned status ${response.status}`;
+          throw new Error(errorMessage);
+        }
+
+        setReservations(parsedData?.data || []);
+      } catch (error) {
+        console.error("Error fetching station:", error);
+        setError(error.message || "Failed to load station details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (station) {
+      fetchStationDetails();
+    }
+  }, [station?.id]);
 
   // Generate complete month calendar data and return specific week
   const generateCalendarData = (month, year) => {
@@ -72,12 +138,19 @@ const BookingStep2Screen = () => {
         today.getDate() === date &&
         today.getMonth() === month - 1 &&
         today.getFullYear() === year;
+      
+      // Check if date is in the past
+      const isPastDate =
+        year < currentYearValue ||
+        (year === currentYearValue && month < currentMonthIndex) ||
+        (year === currentYearValue && month === currentMonthIndex && date < currentDay);
 
       allCalendarData.push({
         date: date,
         isCurrentMonth: true,
         isToday: isToday,
         isPrevMonth: false,
+        isPastDate: isPastDate,
       });
     }
 
@@ -178,7 +251,8 @@ const BookingStep2Screen = () => {
     }
   };
 
-  const generateTimeSlots = () => {
+  // Generate time slots with availability based on reservations
+  const generateTimeSlots = useMemo(() => {
     const slots = [];
     const startHour = 8;
     const endHour = 18;
@@ -187,6 +261,17 @@ const BookingStep2Screen = () => {
       (connector.currentType === "AC"
         ? station.stationConfig.priceAC
         : station.stationConfig.priceDC);
+
+    // Filter active reservations (not canceled or expired)
+    const activeReservations = reservations.filter(
+      (res) => res.status !== "CANCELED" && res.status !== "EXPIRED"
+    );
+
+    // Check if the selected date is today
+    const isToday =
+      selectedDate === currentDay &&
+      currentMonth === currentMonthIndex &&
+      currentYear === currentYearValue;
 
     for (let hour = startHour; hour < endHour; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
@@ -200,33 +285,88 @@ const BookingStep2Screen = () => {
           .toString()
           .padStart(2, "0")}`;
 
+        // Create Date objects for this slot
+        const slotStartDate = new Date(
+          currentYear,
+          currentMonth - 1,
+          selectedDate,
+          hour,
+          minute
+        );
+        const slotEndDate = new Date(
+          currentYear,
+          currentMonth - 1,
+          selectedDate,
+          endHourAdj,
+          adjMinute
+        );
+
+        // Check if this slot is in the past (for today)
+        let isPastTime = false;
+        if (isToday) {
+          isPastTime =
+            hour < currentHours ||
+            (hour === currentHours && minute < currentMinutes);
+        }
+
+        // Check if this slot overlaps with any active reservation
+        let isReserved = false;
+        for (const reservation of activeReservations) {
+          const resStart = new Date(reservation.startsAt);
+          const resEnd = new Date(reservation.expiresAt);
+
+          // Check if the reservation is for the same date
+          if (
+            resStart.getDate() === selectedDate &&
+            resStart.getMonth() === currentMonth - 1 &&
+            resStart.getFullYear() === currentYear
+          ) {
+            // Check for time overlap
+            if (
+              (slotStartDate >= resStart && slotStartDate < resEnd) ||
+              (slotEndDate > resStart && slotEndDate <= resEnd) ||
+              (slotStartDate <= resStart && slotEndDate >= resEnd)
+            ) {
+              isReserved = true;
+              break;
+            }
+          }
+        }
+
         slots.push({
           time: `${startTime} - ${endTime}`,
           startTime: startTime,
           endTime: endTime,
           baseDuration: 30,
           charge: parseInt(chargeLevel as string, 10),
-          available: true,
+          available: !isPastTime && !isReserved,
           price: price,
           hour: hour,
           minute: minute,
+          isPastTime: isPastTime,
+          isReserved: isReserved,
         });
       }
     }
 
     return slots;
-  };
-
-  const timeSlots = generateTimeSlots();
+  }, [selectedDate, currentMonth, currentYear, reservations, chargeLevel]);
 
   const handleDateSelect = (dateObj) => {
-    if (dateObj.isCurrentMonth) {
+    if (dateObj.isCurrentMonth && !dateObj.isPastDate) {
       setSelectedDate(dateObj.date);
       setSelectedTimeSlots([]);
     }
   };
 
   const handleTimeSelect = (index) => {
+    const slot = generateTimeSlots[index];
+    
+    // Don't allow selection if slot is not available
+    if (!slot.available) {
+      return;
+    }
+
     // If no slots are selected yet, just select this one
     if (selectedTimeSlots.length === 0) {
       setSelectedTimeSlots([index]);
@@ -248,10 +388,10 @@ const BookingStep2Screen = () => {
       // Create new array with the new slot added
       const newSelection = [...selectedTimeSlots, index].sort((a, b) => a - b);
 
-      // Verify all slots between min and max are selected (no gaps)
+      // Verify all slots between min and max are available and not reserved
       let isValid = true;
-      for (let i = minSelected; i <= maxSelected; i++) {
-        if (!newSelection.includes(i)) {
+      for (let i = Math.min(index, minSelected); i <= Math.max(index, maxSelected); i++) {
+        if (!generateTimeSlots[i].available || !newSelection.includes(i)) {
           isValid = false;
           break;
         }
@@ -260,7 +400,7 @@ const BookingStep2Screen = () => {
       if (isValid) {
         setSelectedTimeSlots(newSelection);
       } else {
-        // If there's a gap, just select the new slot
+        // If there's a gap or unavailable slot, just select the new slot
         setSelectedTimeSlots([index]);
       }
     } else {
@@ -272,9 +412,9 @@ const BookingStep2Screen = () => {
   const handleContinue = () => {
     if (selectedTimeSlots.length > 0 && station && chargePoint && connector) {
       // first and last slot objects
-      const firstSlot = timeSlots[selectedTimeSlots[0]];
+      const firstSlot = generateTimeSlots[selectedTimeSlots[0]];
       const lastSlot =
-        timeSlots[selectedTimeSlots[selectedTimeSlots.length - 1]];
+        generateTimeSlots[selectedTimeSlots[selectedTimeSlots.length - 1]];
 
       // build Date objects
       const monthIndex = monthNames.indexOf(monthName); // 0‑based
@@ -315,8 +455,8 @@ const BookingStep2Screen = () => {
         selectedPrice: (selectedTimeSlots.length * firstSlot.price).toFixed(2),
         month: monthName,
         year: currentYear,
-        startsAt, 
-        expiresAt, 
+        startsAt,
+        expiresAt,
       };
 
       router.push({
@@ -529,9 +669,10 @@ const BookingStep2Screen = () => {
                     styles.selectedDateCell,
                   dateObj.isToday && styles.todayCell,
                   !dateObj.isCurrentMonth && styles.otherMonthCell,
+                  dateObj.isPastDate && styles.pastDateCell,
                 ]}
                 onPress={() => handleDateSelect(dateObj)}
-                disabled={!dateObj.isCurrentMonth}
+                disabled={!dateObj.isCurrentMonth || dateObj.isPastDate}
               >
                 <Text
                   style={[
@@ -541,6 +682,7 @@ const BookingStep2Screen = () => {
                       styles.selectedDateText,
                     dateObj.isToday && styles.todayText,
                     !dateObj.isCurrentMonth && styles.otherMonthText,
+                    dateObj.isPastDate && styles.pastDateText,
                   ]}
                 >
                   {dateObj.date}
@@ -568,7 +710,7 @@ const BookingStep2Screen = () => {
         </View>
 
         <View style={styles.timeSlotsContainer}>
-          {timeSlots.map((slot, index) => {
+          {generateTimeSlots.map((slot, index) => {
             const isSelected = isSlotSelected(index);
             const isInRange = isSlotInSelectionRange(index);
             const isFirstInSelection =
@@ -581,17 +723,20 @@ const BookingStep2Screen = () => {
                 key={index}
                 style={[
                   styles.timeSlot,
+                  !slot.available && styles.unavailableTimeSlot,
                   isSelected && styles.selectedTimeSlot,
                   isInRange && !isSelected && styles.rangeTimeSlot,
                   isFirstInSelection && styles.firstTimeSlot,
                   isLastInSelection && styles.lastTimeSlot,
                 ]}
                 onPress={() => handleTimeSelect(index)}
+                disabled={!slot.available}
               >
                 <Text
                   style={[
                     styles.timeText,
                     (isSelected || isInRange) && styles.selectedTimeText,
+                    !slot.available && styles.unavailableTimeText,
                   ]}
                 >
                   {slot.startTime} - {slot.endTime}
@@ -602,6 +747,7 @@ const BookingStep2Screen = () => {
                       styles.chargeIcon,
                       { color: getChargeColor(slot.charge) },
                       (isSelected || isInRange) && styles.selectedChargeIcon,
+                      !slot.available && styles.unavailableChargeIcon,
                     ]}
                   >
                     {getChargeIcon(slot.charge)}
@@ -611,6 +757,7 @@ const BookingStep2Screen = () => {
                       styles.chargeText,
                       { color: getChargeColor(slot.charge) },
                       (isSelected || isInRange) && styles.selectedChargeText,
+                      !slot.available && styles.unavailableChargeText,
                     ]}
                   >
                     {slot.charge}%
@@ -620,10 +767,21 @@ const BookingStep2Screen = () => {
                   style={[
                     styles.priceText,
                     (isSelected || isInRange) && styles.selectedPriceText,
+                    !slot.available && styles.unavailablePriceText,
                   ]}
                 >
                   {slot.price} DT
                 </Text>
+                {slot.isReserved && (
+                  <View style={styles.reservedBadge}>
+                    <Text style={styles.reservedBadgeText}>Reserved</Text>
+                  </View>
+                )}
+                {slot.isPastTime && (
+                  <View style={styles.pastTimeBadge}>
+                    <Text style={styles.pastTimeBadgeText}>Past</Text>
+                  </View>
+                )}
               </TouchableOpacity>
             );
           })}
@@ -840,6 +998,9 @@ const styles = StyleSheet.create({
   otherMonthCell: {
     opacity: 0.3,
   },
+  pastDateCell: {
+    opacity: 0.5,
+  },
   dateText: {
     fontSize: 16,
     color: "#333",
@@ -857,6 +1018,10 @@ const styles = StyleSheet.create({
     color: "#999",
     fontWeight: "400",
   },
+  pastDateText: {
+    color: "#999",
+    textDecorationLine: "line-through",
+  },
   timeSlotsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -873,6 +1038,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#E0E0E0",
+    position: "relative",
+  },
+  unavailableTimeSlot: {
+    backgroundColor: "#F5F5F5",
+    opacity: 0.7,
   },
   selectedTimeSlot: {
     backgroundColor: "#E8F5E9",
@@ -902,6 +1072,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: "center",
   },
+  unavailableTimeText: {
+    color: "#999",
+  },
   selectedTimeText: {
     color: "#8c4caf",
     fontWeight: "600",
@@ -916,19 +1089,56 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 4,
   },
+  unavailableChargeText: {
+    color: "#999",
+  },
   selectedChargeText: {
     color: "#8c4caf",
   },
   selectedChargeIcon: {
     color: "#8c4caf",
   },
+  unavailableChargeIcon: {
+    color: "#999",
+  },
   priceText: {
     fontSize: 14,
     color: "#666",
     fontWeight: "600",
   },
+  unavailablePriceText: {
+    color: "#999",
+  },
   selectedPriceText: {
     color: "#8c4caf",
+  },
+  reservedBadge: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    backgroundColor: "#FFCDD2",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  reservedBadgeText: {
+    fontSize: 10,
+    color: "#C62828",
+    fontWeight: "600",
+  },
+  pastTimeBadge: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    backgroundColor: "#E0E0E0",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  pastTimeBadgeText: {
+    fontSize: 10,
+    color: "#616161",
+    fontWeight: "600",
   },
   bottomContainer: {
     paddingHorizontal: 20,

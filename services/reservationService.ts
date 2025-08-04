@@ -132,7 +132,7 @@ export const useReservationService = () => {
       }
 
       const data = await response.json();
-      return data.data[0] || null;
+      return data?.data?.[0] || null
     } catch (error) {
       console.error("Error fetching active session:", error);
       throw error;
