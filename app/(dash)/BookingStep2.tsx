@@ -255,7 +255,7 @@ const BookingStep2Screen = () => {
   const generateTimeSlots = useMemo(() => {
     const slots = [];
     const startHour = 8;
-    const endHour = 18;
+    const endHour = 24;
     const price =
       connector.price ||
       (connector.currentType === "AC"

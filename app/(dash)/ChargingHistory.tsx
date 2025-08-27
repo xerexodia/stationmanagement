@@ -14,6 +14,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
 import { useReservationService } from "../../services/reservationService";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 const ChargingHistoryScreen = () => {
   const [activeTab, setActiveTab] = useState<
@@ -118,27 +122,26 @@ const ChargingHistoryScreen = () => {
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+    return dayjs.utc(dateString).local().format("MMM D, YYYY");
   };
 
   const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return dayjs.utc(dateString).local().format("HH:mm");
   };
 
   const calculateDuration = (start: string, end: string) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const diff = (endDate.getTime() - startDate.getTime()) / (1000 * 60); // in minutes
+    const startDate = dayjs.utc(start);
+    const endDate = dayjs.utc(end);
+    const diff = endDate.diff(startDate, 'minute');
     return `${diff} min`;
+  };
+
+  const isSessionActive = (startsAt: string, expiresAt: string) => {
+    const now = dayjs();
+    const startTime = dayjs.utc(startsAt).local();
+    const endTime = dayjs.utc(expiresAt).local();
+    
+    return now.isAfter(startTime) && now.isBefore(endTime);
   };
 
   const handleCancelReservation = async (reservationId: number) => {
@@ -185,6 +188,7 @@ const ChargingHistoryScreen = () => {
   const renderSessionCard = ({ item }: { item: any }) => {
     const statusStyle = getStatusBadgeStyle(item.status);
     const duration = calculateDuration(item.startsAt, item.expiresAt);
+    const canStartSession = isSessionActive(item.startsAt, item.expiresAt);
 
     return (
       <View style={styles.sessionCard}>
@@ -260,10 +264,19 @@ const ChargingHistoryScreen = () => {
                 <Text style={styles.cancelButtonText}>Cancel booking</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.viewDetailsButton}
-                onPress={() => handleStartSession(item)}
+                style={[
+                  styles.viewDetailsButton,
+                  !canStartSession && styles.disabledButton
+                ]}
+                onPress={() => canStartSession && handleStartSession(item)}
+                disabled={!canStartSession}
               >
-                <Text style={styles.viewDetailsButtonText}>Start Session</Text>
+                <Text style={[
+                  styles.viewDetailsButtonText,
+                  !canStartSession && styles.disabledButtonText
+                ]}>
+                  {canStartSession ? "Start Session" : "Not Available"}
+                </Text>
               </TouchableOpacity>
             </>
           )}
@@ -686,6 +699,12 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
     color: "#666",
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
+  },
+  disabledButtonText: {
+    color: "#999",
   },
 });
 

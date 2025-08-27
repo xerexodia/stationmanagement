@@ -14,7 +14,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useReservationService } from "../../services/reservationService";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
+dayjs.extend(utc);
 interface Reservation {
   id: number;
   startsAt: string;
@@ -39,7 +42,7 @@ const CurrentChargingScreen = () => {
   const { fetchActiveSession, endChargingSession } = useReservationService();
 
   const [reservation, setReservation] = useState<Reservation | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
@@ -171,7 +174,10 @@ const CurrentChargingScreen = () => {
       setLoading(true);
 
       // End the session with the current energy consumption
-      await endChargingSession(reservation.id, energyConsumed);
+      await endChargingSession(
+        reservation?.reservationConfig?.id,
+        energyConsumed
+      );
 
       // Show completion modal
       setShowCompletionModal(true);
@@ -186,17 +192,24 @@ const CurrentChargingScreen = () => {
 
   const handleValidate = () => {
     setShowCompletionModal(false);
-    router.replace("/charging-history");
+    router.replace("/ChargingHistory");
   };
 
   useEffect(() => {
     fetchSessionData();
   }, []);
 
-  if (loading && !reservation) {
+  if (loading) {
     return (
       <SafeAreaView style={styles.container}>
         <ActivityIndicator size="large" color="#8c4caf" style={styles.loader} />
+      </SafeAreaView>
+    );
+  }
+  if (!reservation) {
+    return (
+      <SafeAreaView style={[styles.container, { justifyContent: "center" }]}>
+        <Text style={styles.errorText}>No active charging session</Text>
       </SafeAreaView>
     );
   }
@@ -264,19 +277,13 @@ const CurrentChargingScreen = () => {
             <View style={styles.timeBlock}>
               <Text style={styles.timeLabel}>Started at</Text>
               <Text style={styles.timeValue}>
-                {new Date(reservation.startsAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {dayjs.utc(reservation.startsAt).local().format("HH:mm")}
               </Text>
             </View>
             <View style={styles.timeBlock}>
               <Text style={styles.timeLabel}>Ends at</Text>
               <Text style={styles.timeValue}>
-                {new Date(reservation.expiresAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {dayjs.utc(reservation.expiresAt).local().format("HH:mm")}
               </Text>
             </View>
           </View>
