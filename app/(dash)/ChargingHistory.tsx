@@ -173,17 +173,26 @@ const ChargingHistoryScreen = () => {
     }
   };
 
-  const handleStartSession = async (reservation: any) => {
-    try {
-      await startChargingSession(reservation.id);
-      router.push({
-        pathname: "/CurrentCharging",
-        params: { reservationId: reservation.id },
-      });
-    } catch (error) {
-      console.log("🚀 ~ handleStartSession ~ error:", error);
-    }
-  };
+const handleStartSession = async (reservation: any) => {
+  try {
+    // On démarre la session et on récupère les données renvoyées par l'API
+    const sessionData = await startChargingSession(reservation.id);
+
+    // On récupère l'ID de la session depuis la réponse
+    const sessionId = sessionData.data.id; // <--- Ici c'est l'ID de la session
+
+    // On navigue vers l'écran CurrentCharging en passant l'ID de session
+    router.push({
+      pathname: "/CurrentCharging",
+      params: { sessionId }, // on envoie maintenant sessionId au lieu de reservationId
+    });
+    console.log("handleStartSession",sessionData)
+     console.log("idStartSession",sessionId)
+  } catch (error) {
+    console.log("🚀 ~ handleStartSession ~ error:", error);
+  }
+};
+
 
   const renderSessionCard = ({ item }: { item: any }) => {
     const statusStyle = getStatusBadgeStyle(item.status);
@@ -268,8 +277,8 @@ const ChargingHistoryScreen = () => {
                   styles.viewDetailsButton,
                   !canStartSession && styles.disabledButton
                 ]}
-                onPress={() => canStartSession && handleStartSession(item)}
-                disabled={!canStartSession}
+                onPress={() => /*canStartSession &&*/ handleStartSession(item)}
+              //  disabled={!canStartSession}
               >
                 <Text style={[
                   styles.viewDetailsButtonText,

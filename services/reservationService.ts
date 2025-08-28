@@ -7,6 +7,7 @@ interface Reservation {
   estimatedPrice: number;
   status: "UPCOMING" | "COMPLETED" | "CANCELED";
   review: any;
+   session: any;
   reservationConfig: {
     id: number;
     tolerance: number;
@@ -153,6 +154,7 @@ export const useReservationService = () => {
       );
 
       if (!response.ok) {
+        console.log(sessionId)
         throw new Error(`Failed to end session: ${response.status}`);
       }
 

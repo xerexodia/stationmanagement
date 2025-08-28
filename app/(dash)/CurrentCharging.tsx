@@ -12,7 +12,7 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useRouter,useLocalSearchParams  } from "expo-router";
 import { useReservationService } from "../../services/reservationService";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -25,7 +25,6 @@ interface Reservation {
   estimatedPrice: number;
   status: "UPCOMING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
   review: any;
-  session: any;
   reservationConfig: {
     id: number;
     tolerance: number;
@@ -35,13 +34,18 @@ interface Reservation {
     nreservation: number;
   };
   penalty: any;
+  sessionId?: string;
 }
 
 const CurrentChargingScreen = () => {
   const router = useRouter();
   const { fetchActiveSession, endChargingSession } = useReservationService();
 
+ const { sessionId } = useLocalSearchParams<{ sessionId: string }>(); 
+
+
   const [reservation, setReservation] = useState<Reservation | null>(null);
+  console.log("aaa",reservation)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
@@ -81,11 +85,16 @@ const CurrentChargingScreen = () => {
 
       const response = await fetchActiveSession();
       if (!response) {
-        throw new Error("No active charging session found");
+        return ("No active charging session found");
       }
 
-      setReservation(response as any);
+     
+    
+   
 
+    // On peut stocker le sessionId directement dans reservation
+    setReservation({ ...response, sessionId } as any);
+console.log("aa",reservation)
       const start = new Date(response.startsAt);
       const end = new Date(response.expiresAt);
       const now = new Date();
@@ -142,7 +151,7 @@ const CurrentChargingScreen = () => {
 
       // When battery reaches 100%, show completion modal
       if (newLevel === 100) {
-        setShowCompletionModal(true);
+        setShowCompletionModal(false);
         animateModal();
         clearInterval(interval);
       }
@@ -173,11 +182,9 @@ const CurrentChargingScreen = () => {
     try {
       setLoading(true);
 
+    if (!sessionId) throw new Error("Session ID not found");
       // End the session with the current energy consumption
-      await endChargingSession(
-        reservation?.reservationConfig?.id,
-        energyConsumed
-      );
+      await endChargingSession(Number(sessionId), energyConsumed);
 
       // Show completion modal
       setShowCompletionModal(true);
@@ -206,13 +213,7 @@ const CurrentChargingScreen = () => {
       </SafeAreaView>
     );
   }
-  if (!reservation) {
-    return (
-      <SafeAreaView style={[styles.container, { justifyContent: "center" }]}>
-        <Text style={styles.errorText}>No active charging session</Text>
-      </SafeAreaView>
-    );
-  }
+ 
 
   if (error) {
     return (
@@ -475,7 +476,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 1,
     backgroundColor: "#fff",
     elevation: 2,
     shadowColor: "#000",
@@ -504,7 +505,7 @@ const styles = StyleSheet.create({
   },
   progressSection: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   circularProgress: {
     alignItems: "center",
@@ -542,7 +543,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
-    marginBottom: 20,
+    marginBottom: 5,
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -583,7 +584,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     width: "48%",
-    marginBottom: 12,
+    marginBottom: 5,
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -628,9 +629,9 @@ const styles = StyleSheet.create({
   infoCard: {
     backgroundColor: "#fff",
     borderRadius: 12,
-    padding: 16,
+    padding: 10,
     width: "48%",
-    marginBottom: 12,
+    marginBottom: 5,
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -640,8 +641,8 @@ const styles = StyleSheet.create({
   infoLabel: {
     fontSize: 12,
     color: "#757575",
-    marginTop: 8,
-    marginBottom: 4,
+    marginTop: 1,
+    marginBottom: 1,
   },
   infoValue: {
     fontSize: 16,
@@ -655,7 +656,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF8E1",
     padding: 12,
     borderRadius: 8,
-    marginBottom: 20,
+    marginBottom: 5,
   },
   timeRemainingText: {
     fontSize: 14,
@@ -668,7 +669,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   stopButtonText: {
     color: "#fff",
@@ -696,28 +697,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#8c4caf",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   completionPercentage: {
     fontSize: 32,
     fontWeight: "bold",
     color: "#8c4caf",
-    marginBottom: 8,
+    marginBottom: 5,
   },
   completionTitle: {
     fontSize: 18,
     fontWeight: "600",
     color: "#8c4caf",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   completionDetails: {
     width: "100%",
-    marginBottom: 30,
+    marginBottom: 10,
   },
   detailRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 12,
+    marginBottom: 5,
   },
   detailLabel: {
     fontSize: 14,

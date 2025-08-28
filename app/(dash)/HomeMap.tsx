@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
   },
   locationButton: {
     position: "absolute",
-    bottom: 20,
+    bottom: 60,
     right: 20,
     backgroundColor: "#fff",
     flexDirection: "row",
