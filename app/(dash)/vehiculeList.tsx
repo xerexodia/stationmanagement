@@ -22,7 +22,7 @@ export const fetchClientVehicles = async (
     }
 
     const response = await fetch(
-      `${process.env.EXPO_PUBLIC_API_URL}client/vehicles/client/${14}`,
+      `${process.env.EXPO_PUBLIC_API_URL}client/vehicles/client/${clientId}`,
       {
         method: "GET",
         headers: {
@@ -102,7 +102,7 @@ export const deleteVehicle = async (
 };
 const VehicleListScreen = () => {
   const router = useRouter();
-  const { session, user } = useSession();
+  const { session, user,setAddVehicle } = useSession();
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -155,7 +155,8 @@ const VehicleListScreen = () => {
   };
 
   const handleAddVehicle = () => {
-    router.push("/add-vehicle");
+    setAddVehicle(true)
+    router.push("/");
   };
 
   const handleRefresh = () => {

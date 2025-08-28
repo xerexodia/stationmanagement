@@ -28,6 +28,8 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   setUser: (user: User | null) => void;
+  addVehicle: boolean;
+  setAddVehicle: (addVehicle: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -39,6 +41,8 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   isLoading: false,
   setUser: () => null,
+  addVehicle: false,
+  setAddVehicle: () => null,
 });
 
 export function useSession() {
@@ -49,6 +53,7 @@ export function useSession() {
   return context;
 }
 export function SessionProvider({ children }: PropsWithChildren) {
+  const [addVehicle, setAddVehicle] = useState(false);
   const [[isLoading, session], setSession] = useStorageState("session");
   const [[_, userData], setUserData] = useStorageState("user");
   const [user, setUser] = useState<User | null>(null);
@@ -61,8 +66,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     }
 
     try {
-      
-
       const res = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}client/me/vehicles/info`,
         {
@@ -79,7 +82,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         setSession(null);
         return;
       }
-      
+
       const userFromApi: User = {
         id: String(response.data.client.id),
         firstname: response.data.client.firstname,
@@ -117,7 +120,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   };
 
   const signIn = (token: string) => {
-    initializeSession()
+    initializeSession();
     setSession(token);
   };
 
@@ -138,7 +141,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
         session,
         user,
         isLoading: isLoading || false,
-        setUser
+        setUser,
+        addVehicle,
+        setAddVehicle,
       }}
     >
       {children}

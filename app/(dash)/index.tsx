@@ -204,12 +204,13 @@ const VehicleRegisterStep1 = () => {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [newBrandName, setNewBrandName] = useState("");
   const [isAdding, setIsAdding] = useState(false);
-  const { session,user } = useSession();
-  useEffect(()=>{
-    if(Boolean(user?.vehicleCount)){
-      router.push('/LocationPermission')
+  const { session, user, addVehicle } = useSession();
+  useEffect(() => {
+    if (addVehicle) return;
+    if (Boolean(user?.vehicleCount)) {
+      router.push("/LocationPermission");
     }
-  },[user.vehicleCount])
+  }, [user.vehicleCount]);
   useEffect(() => {
     fetchBrands();
   }, [session]);
@@ -270,20 +271,22 @@ const VehicleRegisterStep1 = () => {
 
     setIsAdding(true);
     try {
-      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}client/brands`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session}`,
-        },
-        body: JSON.stringify({
-          name: newBrandName.trim(),
-        }),
-      });
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}client/brands`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session}`,
+          },
+          body: JSON.stringify({
+            name: newBrandName.trim(),
+          }),
+        }
+      );
 
       const text = await response.text();
       const data = text ? JSON.parse(text) : {};
-
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to add brand");

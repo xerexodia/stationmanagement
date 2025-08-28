@@ -31,7 +31,7 @@ const VehicleRegisterStep5 = () => {
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
-  const { session, user,signIn } = useSession();
+  const { session, user,signIn,setAddVehicle } = useSession();
 
   useEffect(() => {
     if (
@@ -104,6 +104,7 @@ const VehicleRegisterStep5 = () => {
   };
   
   const handleContinue = () => {
+    setAddVehicle(false)
     setShowSuccessModal(false);
     signIn(session)
   };
