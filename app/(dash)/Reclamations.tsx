@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,132 +9,170 @@ import {
   TextInput,
   FlatList,
   Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import { useRouter } from 'expo-router';
+  ActivityIndicator,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useRouter } from "expo-router";
+import { useSession } from "../../context/UserContext";
 
 const ReclamationScreen = () => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('reclamations'); 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState("reclamations");
+  const [searchQuery, setSearchQuery] = useState("");
   const [expandedItems, setExpandedItems] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { session, user } = useSession();
 
-  // Sample reclamation data
-  const [reclamations, setReclamations] = useState([
-    {
-      id: 1,
-      title: 'Name reclamation',
-      number: '#548264',
-      date: '19/06/2025 08:00 AM',
-      status: 'completed',
-    },
-    {
-      id: 2,
-      title: 'Name reclamation',
-      number: '#548264',
-      date: '19/06/2025 08:00 AM',
-      status: 'completed',
-    },
-    {
-      id: 3,
-      title: 'Name reclamation',
-      number: '#548264',
-      date: '19/02/2025 08:00 AM',
-      status: 'in_progress',
-    },
-    {
-      id: 4,
-      title: 'Name reclamation',
-      number: '#548264',
-      date: '19/02/2025 08:00 AM',
-      status: 'canceled',
-    },
-  ]);
+  // State for reclamation data from API
+  const [reclamations, setReclamations] = useState([]);
+
+  // Fetch reclamations from API
+  useEffect(() => {
+    const fetchReclamations = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `${process.env.EXPO_PUBLIC_API_URL}client/complaints/${user?.id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${session}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          // Transform API data to match your existing structure
+          const transformedData = data.data.map((complaint, index) => ({
+            id: complaint.id,
+            title:
+              complaint.description.substring(0, 20) +
+              (complaint.description.length > 20 ? "..." : ""),
+            description: complaint.description,
+            number: `#${complaint.id.toString().padStart(6, "0")}`,
+            date:
+              new Date(complaint.date).toLocaleDateString("fr-FR") +
+              " " +
+              new Date(complaint.date).toLocaleTimeString("fr-FR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+            status: complaint.resolved ? "completed" : "in_progress",
+            resolved: complaint.resolved,
+            fullDate: complaint.date,
+            admin: complaint.admin,
+            client: complaint.client,
+          }));
+
+          setReclamations(transformedData);
+        } else {
+          throw new Error(data.message || "Failed to fetch reclamations");
+        }
+      } catch (error) {
+        console.error("Error fetching reclamations:", error);
+        setError(error.message);
+        Alert.alert("Error", "Failed to load reclamations. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReclamations();
+  }, []);
 
   const bottomTabIcons = [
-    { name: 'gas-pump', screen: '/HomeMap', isActive: false, iconType: 'fontawesome' },
-  { name: 'flash', screen: '/Reclamations', isActive: true },
-  { name: 'notifications', screen: '/Notifications', isActive: false },
-  { name: 'person', screen: '/ShowProfile', isActive: false },
+    {
+      name: "gas-pump",
+      screen: "/HomeMap",
+      isActive: false,
+      iconType: "fontawesome",
+    },
+    { name: "flash", screen: "/Reclamations", isActive: true },
+    { name: "notifications", screen: "/Notifications", isActive: false },
+    { name: "person", screen: "/ShowProfile", isActive: false },
   ];
 
   const renderIcon = (icon) => {
-    const color = icon.isActive ? '#8c4caf' : '#666';
-    
-    if (icon.iconType === 'fontawesome') {
-      return (
-        <FontAwesome5
-          name={icon.name}
-          size={24}
-          color={color}
-        />
-      );
+    const color = icon.isActive ? "#8c4caf" : "#666";
+
+    if (icon.iconType === "fontawesome") {
+      return <FontAwesome5 name={icon.name} size={24} color={color} />;
     } else {
-      return (
-        <Ionicons
-          name={icon.name}
-          size={24}
-          color={color}
-        />
-      );
+      return <Ionicons name={icon.name} size={24} color={color} />;
     }
   };
+
   const getStatusConfig = (status) => {
     switch (status) {
-      case 'completed':
+      case "completed":
         return {
-          text: 'Completed',
-          backgroundColor: '#E8F5E8',
-          textColor: '#8c4caf',
-          icon: 'checkmark',
+          text: "Completed",
+          backgroundColor: "#E8F5E8",
+          textColor: "#8c4caf",
+          icon: "checkmark",
         };
-      case 'in_progress':
+      case "in_progress":
         return {
-          text: 'En cours',
-          backgroundColor: '#FFF3E0',
-          textColor: '#FF9800',
-          icon: 'time',
+          text: "En cours",
+          backgroundColor: "#FFF3E0",
+          textColor: "#FF9800",
+          icon: "time",
         };
-      case 'canceled':
+      case "canceled":
         return {
-          text: 'Canceled',
-          backgroundColor: '#FFEBEE',
-          textColor: '#F44336',
-          icon: 'close',
+          text: "Canceled",
+          backgroundColor: "#FFEBEE",
+          textColor: "#F44336",
+          icon: "close",
         };
       default:
         return {
-          text: 'Unknown',
-          backgroundColor: '#F5F5F5',
-          textColor: '#666',
-          icon: 'help',
+          text: "Unknown",
+          backgroundColor: "#F5F5F5",
+          textColor: "#666",
+          icon: "help",
         };
     }
   };
 
   const toggleExpanded = (id) => {
-    setExpandedItems(prev => ({
+    setExpandedItems((prev) => ({
       ...prev,
-      [id]: !prev[id]
+      [id]: !prev[id],
     }));
   };
 
-  const handleCancelReclamation = (id) => {
+  const handleCancelReclamation = async (id) => {
     Alert.alert(
-      'Cancel Reclamation',
-      'Are you sure you want to cancel this reclamation?',
+      "Cancel Reclamation",
+      "Are you sure you want to cancel this reclamation?",
       [
-        { text: 'No', style: 'cancel' },
+        { text: "No", style: "cancel" },
         {
-          text: 'Yes',
-          style: 'destructive',
-          onPress: () => {
-            setReclamations(prev =>
-              prev.map(item =>
-                item.id === id ? { ...item, status: 'canceled' } : item
-              )
-            );
+          text: "Yes",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              // You might want to implement an API call to cancel the reclamation
+              // For now, we'll just update the local state
+              setReclamations((prev) =>
+                prev.map((item) =>
+                  item.id === id
+                    ? { ...item, status: "canceled", resolved: false }
+                    : item
+                )
+              );
+            } catch (error) {
+              Alert.alert("Error", "Failed to cancel reclamation");
+            }
           },
         },
       ]
@@ -143,35 +181,50 @@ const ReclamationScreen = () => {
 
   const handleViewDetails = (item) => {
     router.push({
-      pathname: '/reclamation-details',
-      params: { 
+      pathname: "/reclamation-details",
+      params: {
         id: item.id,
         title: item.title,
+        description: item.description,
         number: item.number,
         date: item.date,
-        status: item.status
-      }
+        fullDate: item.fullDate,
+        status: item.status,
+        resolved: item.resolved,
+        admin: JSON.stringify(item.admin),
+        client: JSON.stringify(item.client),
+      },
     });
   };
 
-  const filteredReclamations = reclamations.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         item.number.toLowerCase().includes(searchQuery.toLowerCase());
-    
+  const filteredReclamations = reclamations.filter((item) => {
+    const matchesSearch =
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase());
+
     switch (activeTab) {
-      case 'actives':
-        return matchesSearch && item.status === 'in_progress';
-      case 'historique':
-        return matchesSearch && (item.status === 'completed' || item.status === 'canceled');
+      case "actives":
+        return matchesSearch && item.status === "in_progress";
+      case "historique":
+        return (
+          matchesSearch &&
+          (item.status === "completed" || item.status === "canceled")
+        );
       default:
         return matchesSearch;
     }
   });
 
+  // Count active reclamations for the tab label
+  const activeReclamationsCount = reclamations.filter(
+    (item) => item.status === "in_progress"
+  ).length;
+
   const renderReclamationItem = ({ item }) => {
     const statusConfig = getStatusConfig(item.status);
     const isExpanded = expandedItems[item.id];
-    const canCancel = item.status === 'in_progress';
+    const canCancel = item.status === "in_progress";
 
     return (
       <View style={styles.reclamationCard}>
@@ -182,23 +235,36 @@ const ReclamationScreen = () => {
           <View style={styles.reclamationInfo}>
             <Text style={styles.reclamationTitle}>{item.title}</Text>
             <Text style={styles.reclamationNumber}>{item.number}</Text>
+            <Text style={styles.reclamationDescription} numberOfLines={1}>
+              {item.description}
+            </Text>
           </View>
-          
-          <View style={styles.reclamationRight}>
-            <View style={[styles.statusBadge, { backgroundColor: statusConfig.backgroundColor }]}>
-            <Ionicons name={statusConfig.icon as any} size={12} color={statusConfig.textColor} />
 
-              <Text style={[styles.statusText, { color: statusConfig.textColor }]}>
+          <View style={styles.reclamationRight}>
+            <View
+              style={[
+                styles.statusBadge,
+                { backgroundColor: statusConfig.backgroundColor },
+              ]}
+            >
+              <Ionicons
+                name={statusConfig.icon as any}
+                size={12}
+                color={statusConfig.textColor}
+              />
+              <Text
+                style={[styles.statusText, { color: statusConfig.textColor }]}
+              >
                 {statusConfig.text}
               </Text>
             </View>
-            
+
             <Text style={styles.reclamationDate}>{item.date}</Text>
-            
-            <Ionicons 
-              name={isExpanded ? "chevron-up" : "chevron-down"} 
-              size={20} 
-              color="#666" 
+
+            <Ionicons
+              name={isExpanded ? "chevron-up" : "chevron-down"}
+              size={20}
+              color="#666"
             />
           </View>
         </TouchableOpacity>
@@ -214,7 +280,7 @@ const ReclamationScreen = () => {
                 <Text style={styles.cancelButtonText}>Cancel reclamation</Text>
               </TouchableOpacity>
             )}
-            
+
             <TouchableOpacity
               style={styles.viewDetailsButton}
               onPress={() => handleViewDetails(item)}
@@ -227,13 +293,42 @@ const ReclamationScreen = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#8c4caf" />
+          <Text style={styles.loadingText}>Loading reclamations...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Ionicons name="alert-circle" size={48} color="#F44336" />
+          <Text style={styles.errorText}>Error loading reclamations</Text>
+          <Text style={styles.errorSubText}>{error}</Text>
+          <TouchableOpacity
+            style={styles.retryButton}
+            onPress={() => window.location.reload()}
+          >
+            <Text style={styles.retryButtonText}>Retry</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      
+
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
         >
@@ -241,7 +336,7 @@ const ReclamationScreen = () => {
             <Ionicons name="chevron-back" size={24} color="#fff" />
           </View>
         </TouchableOpacity>
-        
+
         <Text style={styles.headerTitle}>Reclamations</Text>
         <View style={styles.headerSpacer} />
       </View>
@@ -249,28 +344,43 @@ const ReclamationScreen = () => {
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'reclamations' && styles.activeTab]}
-          onPress={() => setActiveTab('reclamations')}
+          style={[styles.tab, activeTab === "reclamations" && styles.activeTab]}
+          onPress={() => setActiveTab("reclamations")}
         >
-          <Text style={[styles.tabText, activeTab === 'reclamations' && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "reclamations" && styles.activeTabText,
+            ]}
+          >
             Reclamations
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'actives' && styles.activeTab]}
-          onPress={() => setActiveTab('actives')}
+          style={[styles.tab, activeTab === "actives" && styles.activeTab]}
+          onPress={() => setActiveTab("actives")}
         >
-          <Text style={[styles.tabText, activeTab === 'actives' && styles.activeTabText]}>
-            Actives (07)
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "actives" && styles.activeTabText,
+            ]}
+          >
+            Actives ({activeReclamationsCount})
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'historique' && styles.activeTab]}
-          onPress={() => setActiveTab('historique')}
+          style={[styles.tab, activeTab === "historique" && styles.activeTab]}
+          onPress={() => setActiveTab("historique")}
         >
-          <Text style={[styles.tabText, activeTab === 'historique' && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "historique" && styles.activeTabText,
+            ]}
+          >
             Historique
           </Text>
         </TouchableOpacity>
@@ -293,18 +403,30 @@ const ReclamationScreen = () => {
       </View>
 
       {/* Reclamations List */}
-      <FlatList
-        data={filteredReclamations}
-        renderItem={renderReclamationItem}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
+      {filteredReclamations.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Ionicons name="document-text" size={64} color="#ccc" />
+          <Text style={styles.emptyText}>No reclamations found</Text>
+          <Text style={styles.emptySubText}>
+            {searchQuery
+              ? "Try a different search term"
+              : "You have no reclamations yet"}
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={filteredReclamations}
+          renderItem={renderReclamationItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
 
       {/* Add Button */}
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => router.push('/AddReclamation')}
+        onPress={() => router.push("/AddReclamation")}
       >
         <Ionicons name="add" size={24} color="#fff" />
       </TouchableOpacity>
@@ -314,7 +436,10 @@ const ReclamationScreen = () => {
         {bottomTabIcons.map((icon, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.bottomNavItem, icon.isActive && styles.activeNavItem]}
+            style={[
+              styles.bottomNavItem,
+              icon.isActive && styles.activeNavItem,
+            ]}
             onPress={() => router.push(icon.screen)}
           >
             <View style={icon.isActive ? styles.activeNavIcon : null}>
@@ -330,40 +455,40 @@ const ReclamationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   backButton: {
     width: 40,
     height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   backButtonCircle: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#333',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#333",
+    alignItems: "center",
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
   headerSpacer: {
     width: 40,
   },
   tabContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 20,
     paddingBottom: 15,
   },
@@ -372,30 +497,30 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
   },
   activeTab: {
-    backgroundColor: '#8c4caf',
+    backgroundColor: "#8c4caf",
   },
   tabText: {
     fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
+    color: "#666",
+    fontWeight: "500",
   },
   activeTabText: {
-    color: '#fff',
+    color: "#fff",
   },
   searchContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 20,
     paddingBottom: 15,
     gap: 10,
   },
   searchBar: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
     borderRadius: 12,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -404,25 +529,25 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   filterButton: {
     width: 48,
     height: 48,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   listContainer: {
     paddingHorizontal: 20,
     paddingBottom: 100,
   },
   reclamationCard: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     marginBottom: 15,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -432,9 +557,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   reclamationHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 15,
   },
   reclamationInfo: {
@@ -442,21 +567,26 @@ const styles = StyleSheet.create({
   },
   reclamationTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 4,
   },
   reclamationNumber: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
+    marginBottom: 4,
+  },
+  reclamationDescription: {
+    fontSize: 12,
+    color: "#999",
   },
   reclamationRight: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     gap: 4,
   },
   statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -464,56 +594,56 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   reclamationDate: {
     fontSize: 12,
-    color: '#999',
+    color: "#999",
   },
   expandedActions: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 15,
     paddingTop: 0,
     gap: 10,
   },
   cancelButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#F44336',
-    backgroundColor: '#fff',
+    borderColor: "#F44336",
+    backgroundColor: "#fff",
     gap: 6,
   },
   cancelButtonText: {
-    color: '#F44336',
+    color: "#F44336",
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   viewDetailsButton: {
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
-    backgroundColor: '#8c4caf',
+    backgroundColor: "#8c4caf",
   },
   viewDetailsButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   addButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 100,
     right: 20,
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#8c4caf',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
+    backgroundColor: "#8c4caf",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -523,29 +653,85 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bottomNav: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    backgroundColor: "#fff",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderTopWidth: 1,
-    borderTopColor: '#E5E5E5',
+    borderTopColor: "#E5E5E5",
   },
   bottomNavItem: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 8,
   },
   activeNavItem: {
     // Additional styling for active item if needed
   },
   activeNavIcon: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: "#E8F5E9",
     borderRadius: 20,
     width: 32,
     height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 16,
+    color: "#666",
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#333",
+    marginTop: 16,
+  },
+  errorSubText: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginTop: 8,
+    marginBottom: 20,
+  },
+  retryButton: {
+    backgroundColor: "#8c4caf",
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  retryButtonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 40,
+  },
+  emptyText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#666",
+    marginTop: 16,
+  },
+  emptySubText: {
+    fontSize: 14,
+    color: "#999",
+    textAlign: "center",
+    marginTop: 8,
   },
 });
 

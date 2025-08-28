@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,84 +9,77 @@ import {
   StatusBar,
   ScrollView,
   Alert,
-  Image,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import { router } from 'expo-router';
+  ActivityIndicator,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { useSession } from "../../context/UserContext";
 
 const AddReclamationScreen = () => {
-  const [stationName, setStationName] = useState('');
-  const [reclamationType, setReclamationType] = useState('');
-  const [description, setDescription] = useState('');
-  const [attachedFile, setAttachedFile] = useState(null);
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { session, user } = useSession();
 
   const handleBack = () => {
     router.back();
   };
 
-  const handleFileUpload = async () => {
-    // Request permissions
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Permission refusée', 'Nous avons besoin de votre permission pour accéder à vos photos.');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets && result.assets[0]) {
-      setAttachedFile(result.assets[0]);
-    }
-  };
-
-  const handleSubmit = () => {
-    if (!stationName.trim()) {
-      Alert.alert('Erreur', 'Veuillez saisir le nom de la station');
-      return;
-    }
-    if (!reclamationType.trim()) {
-      Alert.alert('Erreur', 'Veuillez saisir le type de réclamation');
-      return;
-    }
+  const handleSubmit = async () => {
     if (!description.trim()) {
-      Alert.alert('Erreur', 'Veuillez saisir une description');
+      Alert.alert("Erreur", "Veuillez saisir une description");
       return;
     }
 
-    // Handle form submission
-    const formData = {
-      stationName,
-      reclamationType,
-      description,
-      attachedFile,
-    };
+    if (description.length > 320) {
+      Alert.alert("Erreur", "La description ne peut pas dépasser 320 caractères");
+      return;
+    }
 
-    console.log('Submitting reclamation:', formData);
-    Alert.alert(
-        'Succès',
-        'Votre réclamation a été envoyée avec succès!',
-        [
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}client/complaints/${user?.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session}`,
+          },
+          body: JSON.stringify({
+          description: description.trim()
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        Alert.alert("Succès", "Votre réclamation a été envoyée avec succès!", [
           {
-            text: 'OK',
+            text: "OK",
             onPress: () => {
-              router.back(); // Navigate back only after pressing OK
-            }
-          }
-        ]
+              router.replace("/Reclamations");
+            },
+          },
+        ]);
+      } else {
+        throw new Error(data.message || 'Erreur lors de l\'envoi de la réclamation');
+      }
+    } catch (error) {
+      console.error('Error submitting reclamation:', error);
+      Alert.alert(
+        "Erreur", 
+        error.message || "Une erreur s'est produite lors de l'envoi de votre réclamation. Veuillez réessayer."
       );
-  
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
@@ -97,36 +90,11 @@ const AddReclamationScreen = () => {
         <Text style={styles.headerTitle}>Ajouter une reclamation</Text>
       </View>
 
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.formContainer}>
-          {/* Station Name */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldLabel}>
-              Nom de Station<Text style={styles.required}>*</Text>
-            </Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="bgrtsiks"
-              value={stationName}
-              onChangeText={setStationName}
-              placeholderTextColor="#BDBDBD"
-            />
-          </View>
-
-          {/* Reclamation Type */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldLabel}>
-              Type de réclamation<Text style={styles.required}>*</Text>
-            </Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="satisfaction"
-              value={reclamationType}
-              onChangeText={setReclamationType}
-              placeholderTextColor="#BDBDBD"
-            />
-          </View>
-
           {/* Description */}
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldLabel}>
@@ -142,45 +110,37 @@ const AddReclamationScreen = () => {
                 numberOfLines={6}
                 textAlignVertical="top"
                 placeholderTextColor="#BDBDBD"
+                maxLength={320}
+                editable={!loading}
               />
               <Text style={styles.characterCount}>
                 {description.length}/320
               </Text>
             </View>
           </View>
-
-          {/* File Upload */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldLabel}>
-              Pièce jointe <Text style={styles.optional}>(facultatif)</Text>
-            </Text>
-            <TouchableOpacity style={styles.uploadContainer} onPress={handleFileUpload}>
-              <View style={styles.uploadContent}>
-                {attachedFile ? (
-                  <View style={styles.filePreview}>
-                    <Ionicons name="document-attach" size={40} color="#8c4caf" />
-                    <Text style={styles.fileName}>{attachedFile.fileName || 'Fichier sélectionné'}</Text>
-                  </View>
-                ) : (
-                  <>
-                    <View style={styles.uploadIcon}>
-                      <Ionicons name="image-outline" size={40} color="#8c4caf" />
-                    </View>
-                    <Text style={styles.uploadText}>Cliquer pour ajouter</Text>
-                    <Text style={styles.uploadSubtext}>un fichier</Text>
-                  </>
-                )}
-              </View>
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
 
       {/* Submit Button */}
       <View style={styles.submitContainer}>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Envoyer</Text>
-          <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.submitIcon} />
+        <TouchableOpacity 
+          style={[styles.submitButton, loading && styles.submitButtonDisabled]} 
+          onPress={handleSubmit}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <>
+              <Text style={styles.submitButtonText}>Envoyer</Text>
+              <Ionicons
+                name="arrow-forward"
+                size={20}
+                color="#fff"
+                style={styles.submitIcon}
+              />
+            </>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -190,14 +150,14 @@ const AddReclamationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: "#F8F9FA",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   backButton: {
     marginRight: 15,
@@ -206,14 +166,14 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#333',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#333",
+    alignItems: "center",
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
   scrollView: {
     flex: 1,
@@ -226,61 +186,61 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
+    fontWeight: "500",
+    color: "#333",
     marginBottom: 8,
   },
   required: {
-    color: '#FF5722',
+    color: "#FF5722",
   },
   optional: {
-    color: '#757575',
-    fontWeight: '400',
+    color: "#757575",
+    fontWeight: "400",
   },
   textInput: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: "#E0E0E0",
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   textAreaContainer: {
-    position: 'relative',
+    position: "relative",
   },
   textArea: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: "#E0E0E0",
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
     minHeight: 120,
   },
   characterCount: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 12,
     right: 16,
     fontSize: 12,
-    color: '#757575',
+    color: "#757575",
   },
   uploadContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 2,
-    borderColor: '#8c4caf',
-    borderStyle: 'dashed',
+    borderColor: "#8c4caf",
+    borderStyle: "dashed",
     borderRadius: 8,
     minHeight: 120,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   uploadContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 20,
   },
   uploadIcon: {
@@ -288,40 +248,43 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     fontSize: 16,
-    color: '#8c4caf',
-    fontWeight: '500',
+    color: "#8c4caf",
+    fontWeight: "500",
   },
   uploadSubtext: {
     fontSize: 16,
-    color: '#8c4caf',
-    fontWeight: '500',
+    color: "#8c4caf",
+    fontWeight: "500",
   },
   filePreview: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   fileName: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
     marginTop: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   submitContainer: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   submitButton: {
-    backgroundColor: '#8c4caf',
+    backgroundColor: "#8c4caf",
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  submitButtonDisabled: {
+    backgroundColor: "#cccccc",
   },
   submitButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginRight: 8,
   },
   submitIcon: {
