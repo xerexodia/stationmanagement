@@ -12,12 +12,14 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter,useLocalSearchParams  } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useReservationService } from "../../services/reservationService";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useStorageState } from "../../hooks/useStorageState";
 
 dayjs.extend(utc);
+
 interface Reservation {
   id: number;
   startsAt: string;
@@ -38,14 +40,14 @@ interface Reservation {
 }
 
 const CurrentChargingScreen = () => {
+  const [[_, sessionId], setSession] = useStorageState("sessionId");
+  console.log("🚀 ~ CurrentChargingScreen ~ sessionId:", sessionId)
+
   const router = useRouter();
   const { fetchActiveSession, endChargingSession } = useReservationService();
 
- const { sessionId } = useLocalSearchParams<{ sessionId: string }>(); 
-
-
   const [reservation, setReservation] = useState<Reservation | null>(null);
-  console.log("aaa",reservation)
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
@@ -55,6 +57,8 @@ const CurrentChargingScreen = () => {
   const [timeElapsed, setTimeElapsed] = useState("00:00:00");
   const [energyConsumed, setEnergyConsumed] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
+  const [startTime, setStartTime] = useState<dayjs.Dayjs | null>(null);
+  const [endTime, setEndTime] = useState<dayjs.Dayjs | null>(null);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -69,12 +73,9 @@ const CurrentChargingScreen = () => {
   };
 
   const calculateTimeRemaining = (expiresAt: string) => {
-    const now = new Date();
-    const end = new Date(expiresAt);
-    const diff = Math.max(
-      0,
-      Math.floor((end.getTime() - now.getTime()) / 1000)
-    );
+    const now = dayjs.utc();
+    const end = dayjs.utc(expiresAt);
+    const diff = Math.max(0, end.diff(now, "second"));
     return formatTime(diff);
   };
 
@@ -85,34 +86,43 @@ const CurrentChargingScreen = () => {
 
       const response = await fetchActiveSession();
       if (!response) {
-        return ("No active charging session found");
+        setError("No active charging session found");
+        return;
       }
-    // On peut stocker le sessionId directement dans reservation
-    setReservation({ ...response, sessionId } as any);
-console.log("aa",reservation)
-      const start = dayjs.utc(response.startsAt).local();
-      const end = dayjs.utc(response.expiresAt).local();
-      const now = dayjs().local();
+
+      // Store reservation with sessionId
+      setReservation({ ...response, sessionId: sessionId } as Reservation);
+
+      // Parse start and end times
+      const start = dayjs.utc(response.startsAt);
+      const end = dayjs.utc(response.expiresAt);
+      const now = dayjs.utc();
+
+      setStartTime(start);
+      setEndTime(end);
 
       // Calculate total session duration in seconds
-      const totalSeconds = Math.floor((end.diff(start, "second")) / 1000);
+      const totalSeconds = end.diff(start, "second");
       setTotalDuration(totalSeconds);
 
       // Calculate elapsed time in seconds
-      const elapsedSeconds = Math.floor(
-        (now.diff(start, "second")) / 1000
-      );
+      const elapsedSeconds = Math.min(now.diff(start, "second"), totalSeconds);
       setTimeElapsed(formatTime(elapsedSeconds));
 
       // Calculate battery level based on elapsed time (assuming linear charging)
       const calculatedLevel = Math.min(
-        20 + Math.floor((elapsedSeconds / totalSeconds) * 80), // Start at 20% and charge to 100%
+        ((reservation as any)?.client?.vehicles?.[0]?.variant
+          ?.batteryCapacity ?? 0) +
+          Math.floor((elapsedSeconds / totalSeconds) * 80), // Start at 20% and charge to 100%
         100
       );
       setBatteryLevel(calculatedLevel);
 
       // Calculate energy consumed based on battery level and estimated price
-      setEnergyConsumed(response.estimatedPrice * (calculatedLevel / 100));
+      // Assuming estimatedPrice is the total cost for a full charge
+      const energyConsumedCalc =
+        response.estimatedPrice * (calculatedLevel / 100);
+      setEnergyConsumed(energyConsumedCalc);
     } catch (err) {
       setError(err.message || "Failed to load charging session");
       console.error("Error fetching session:", err);
@@ -123,18 +133,20 @@ console.log("aa",reservation)
 
   // Simulate charging progress
   useEffect(() => {
-    if (!reservation || totalDuration <= 0) return;
+    if (!startTime || !endTime || totalDuration <= 0) return;
 
     const interval = setInterval(() => {
-      const now = dayjs().local();
-      const start = dayjs.utc(reservation.startsAt).local();
-      const elapsedSeconds = Math.floor(
-        (now.diff(start, "second")) / 1000
+      const now = dayjs.utc();
+      const elapsedSeconds = Math.min(
+        now.diff(startTime, "second"),
+        totalDuration
       );
 
       // Calculate new battery level
       const newLevel = Math.min(
-        20 + Math.floor((elapsedSeconds / totalDuration) * 80),
+        ((reservation as any)?.client?.vehicles?.[0]?.variant
+          ?.batteryCapacity ?? 0) +
+          Math.floor((elapsedSeconds / totalDuration) * 80),
         100
       );
 
@@ -142,20 +154,26 @@ console.log("aa",reservation)
       setTimeElapsed(formatTime(elapsedSeconds));
 
       // Update energy consumption
-      setEnergyConsumed(reservation.estimatedPrice * (newLevel / 100));
+      if (reservation) {
+        const newEnergyConsumed = reservation.estimatedPrice * (newLevel / 100);
+        setEnergyConsumed(newEnergyConsumed);
+      }
 
       // When battery reaches 100%, show completion modal
-      if (newLevel === 100) {
-        setShowCompletionModal(false);
+      if (
+        (newLevel === 100 || elapsedSeconds >= totalDuration) &&
+        !showCompletionModal
+      ) {
+        setShowCompletionModal(true);
+        handleStopCharging();
         animateModal();
         clearInterval(interval);
       }
     }, 1000); // Update every second for better accuracy
 
     return () => clearInterval(interval);
-  }, [reservation, totalDuration]);
+  }, [startTime, endTime, totalDuration, reservation, showCompletionModal]);
 
-  // Rest of the component remains the same...
   const animateModal = () => {
     Animated.parallel([
       Animated.timing(fadeAnim, {
@@ -177,7 +195,8 @@ console.log("aa",reservation)
     try {
       setLoading(true);
 
-    if (!sessionId) throw new Error("Session ID not found");
+      if (!sessionId) throw new Error("Session ID not found");
+
       // End the session with the current energy consumption
       await endChargingSession(Number(sessionId), energyConsumed);
 
@@ -208,7 +227,6 @@ console.log("aa",reservation)
       </SafeAreaView>
     );
   }
- 
 
   if (error) {
     return (
@@ -352,7 +370,7 @@ console.log("aa",reservation)
               <Ionicons name="battery-charging" size={40} color="#fff" />
             </View>
 
-            <Text style={styles.completionPercentage}>100%</Text>
+            <Text style={styles.completionPercentage}>{batteryLevel}%</Text>
             <Text style={styles.completionTitle}>Charging completed</Text>
 
             <View style={styles.completionDetails}>
@@ -432,6 +450,8 @@ const InfoCard = ({ icon, label, value, iconColor = "#8c4caf" }) => (
     <Text style={styles.infoValue}>{value}</Text>
   </View>
 );
+
+export default CurrentChargingScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -738,5 +758,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default CurrentChargingScreen;

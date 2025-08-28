@@ -32,6 +32,9 @@ const ShowProfileScreen = () => {
   const handleChargingHistoryPress = () => {
     router.push("/ChargingHistory");
   };
+  const handleWalletPress = () => {
+    router.push("/wallet");
+  };
 
   const handleLanguagePress = () => {
     console.log("Language pressed");
@@ -88,10 +91,10 @@ const ShowProfileScreen = () => {
     icon: any;
     title: any;
     subtitle?: any;
-    onPress?: () => void; 
+    onPress?: () => void;
     showSwitch?: boolean;
     switchValue?: boolean;
-    onSwitchChange?: (value: boolean) => void; 
+    onSwitchChange?: (value: boolean) => void;
     iconColor?: string;
     showArrow?: boolean;
   }) => (
@@ -184,6 +187,14 @@ const ShowProfileScreen = () => {
             title="Charging Sessions History"
             subtitle="View your charging sessions history"
             onPress={handleChargingHistoryPress}
+          />
+          <View style={styles.separator} />
+
+          <SettingsItem
+            icon="wallet"
+            title="Wallet"
+            subtitle="View your wallet"
+            onPress={handleWalletPress}
           />
           <View style={styles.separator} />
 

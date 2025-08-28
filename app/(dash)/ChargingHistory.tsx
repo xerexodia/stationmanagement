@@ -16,10 +16,13 @@ import { router, useFocusEffect } from "expo-router";
 import { useReservationService } from "../../services/reservationService";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useStorageState } from "../../hooks/useStorageState";
 
 dayjs.extend(utc);
 
 const ChargingHistoryScreen = () => {
+  const [[_, sessionId], setSession] = useStorageState("sessionId");
+
   const [activeTab, setActiveTab] = useState<
     "UPCOMING" | "COMPLETED" | "CANCELED"
   >("UPCOMING");
@@ -132,7 +135,7 @@ const ChargingHistoryScreen = () => {
   const calculateDuration = (start: string, end: string) => {
     const startDate = dayjs.utc(start);
     const endDate = dayjs.utc(end);
-    const diff = endDate.diff(startDate, 'minute');
+    const diff = endDate.diff(startDate, "minute");
     return `${diff} min`;
   };
 
@@ -140,7 +143,7 @@ const ChargingHistoryScreen = () => {
     const now = dayjs();
     const startTime = dayjs.utc(startsAt).local();
     const endTime = dayjs.utc(expiresAt).local();
-    
+
     return now.isAfter(startTime) && now.isBefore(endTime);
   };
 
@@ -173,26 +176,21 @@ const ChargingHistoryScreen = () => {
     }
   };
 
-const handleStartSession = async (reservation: any) => {
-  try {
-    // On démarre la session et on récupère les données renvoyées par l'API
-    const sessionData = await startChargingSession(reservation.id);
-
-    // On récupère l'ID de la session depuis la réponse
-    const sessionId = sessionData.data.id; // <--- Ici c'est l'ID de la session
-
-    // On navigue vers l'écran CurrentCharging en passant l'ID de session
-    router.push({
-      pathname: "/CurrentCharging",
-      params: { sessionId }, // on envoie maintenant sessionId au lieu de reservationId
-    });
-    console.log("handleStartSession",sessionData)
-     console.log("idStartSession",sessionId)
-  } catch (error) {
-    console.log("🚀 ~ handleStartSession ~ error:", error);
-  }
-};
-
+  const handleStartSession = async (reservation: any) => {
+    try {
+      // On démarre la session et on récupère les données renvoyées par l'API
+      const sessionData = await startChargingSession(reservation.id);
+      if (sessionData?.data?.id) {
+        const sessionId = sessionData.data.id;
+        setSession(sessionId?.toString());
+        router.push({
+          pathname: "/CurrentCharging",
+        });
+      }
+    } catch (error) {
+      console.log("🚀 ~ handleStartSession ~ error:", error);
+    }
+  };
 
   const renderSessionCard = ({ item }: { item: any }) => {
     const statusStyle = getStatusBadgeStyle(item.status);
@@ -275,15 +273,17 @@ const handleStartSession = async (reservation: any) => {
               <TouchableOpacity
                 style={[
                   styles.viewDetailsButton,
-                  !canStartSession && styles.disabledButton
+                  !canStartSession && styles.disabledButton,
                 ]}
                 onPress={() => /*canStartSession &&*/ handleStartSession(item)}
-              //  disabled={!canStartSession}
+                //  disabled={!canStartSession}
               >
-                <Text style={[
-                  styles.viewDetailsButtonText,
-                  !canStartSession && styles.disabledButtonText
-                ]}>
+                <Text
+                  style={[
+                    styles.viewDetailsButtonText,
+                    !canStartSession && styles.disabledButtonText,
+                  ]}
+                >
                   {canStartSession ? "Start Session" : "Not Available"}
                 </Text>
               </TouchableOpacity>
