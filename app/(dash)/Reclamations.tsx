@@ -29,62 +29,62 @@ const ReclamationScreen = () => {
   const [reclamations, setReclamations] = useState([]);
 
   // Fetch reclamations from API
-  useEffect(() => {
-    const fetchReclamations = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.EXPO_PUBLIC_API_URL}client/complaints/${user?.id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${session}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+  const fetchReclamations = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}client/complaints/${user?.id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${session}`,
+          },
         }
+      );
 
-        const data = await response.json();
-
-        if (data.success && data.data) {
-          // Transform API data to match your existing structure
-          const transformedData = data.data.map((complaint, index) => ({
-            id: complaint.id,
-            title:
-              complaint.description.substring(0, 20) +
-              (complaint.description.length > 20 ? "..." : ""),
-            description: complaint.description,
-            number: `#${complaint.id.toString().padStart(6, "0")}`,
-            date:
-              new Date(complaint.date).toLocaleDateString("fr-FR") +
-              " " +
-              new Date(complaint.date).toLocaleTimeString("fr-FR", {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-            status: complaint.resolved ? "completed" : "in_progress",
-            resolved: complaint.resolved,
-            fullDate: complaint.date,
-            admin: complaint.admin,
-            client: complaint.client,
-          }));
-
-          setReclamations(transformedData);
-        } else {
-          throw new Error(data.message || "Failed to fetch reclamations");
-        }
-      } catch (error) {
-        console.error("Error fetching reclamations:", error);
-        setError(error.message);
-        Alert.alert("Error", "Failed to load reclamations. Please try again.");
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        // Transform API data to match your existing structure
+        const transformedData = data.data.map((complaint, index) => ({
+          id: complaint.id,
+          title:
+            complaint.description.substring(0, 20) +
+            (complaint.description.length > 20 ? "..." : ""),
+          description: complaint.description,
+          number: `#${complaint.id.toString().padStart(6, "0")}`,
+          date:
+            new Date(complaint.date).toLocaleDateString("fr-FR") +
+            " " +
+            new Date(complaint.date).toLocaleTimeString("fr-FR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          status: complaint.resolved ? "completed" : "in_progress",
+          resolved: complaint.resolved,
+          fullDate: complaint.date,
+          admin: complaint.admin,
+          client: complaint.client,
+        }));
+
+        setReclamations(transformedData);
+      } else {
+        throw new Error(data.message || "Failed to fetch reclamations");
+      }
+    } catch (error) {
+      console.error("Error fetching reclamations:", error);
+      setError(error.message);
+      Alert.alert("Error", "Failed to load reclamations. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchReclamations();
   }, []);
 
@@ -150,6 +150,57 @@ const ReclamationScreen = () => {
     }));
   };
 
+  const handleDeleteReclamation = async (id) => {
+    Alert.alert(
+      "Delete Reclamation",
+      "Are you sure you want to delete this reclamation? This action cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              setLoading(true);
+              const response = await fetch(
+                `${process.env.EXPO_PUBLIC_API_URL}client/complaints/${id}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Authorization: `Bearer ${session}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+
+              if (data.success) {
+                // Remove the deleted reclamation from the list
+                setReclamations(prev => prev.filter(item => item.id !== id));
+                Alert.alert("Success", "Reclamation deleted successfully");
+              } else {
+                throw new Error(data.message || "Failed to delete reclamation");
+              }
+            } catch (error) {
+              console.error("Error deleting reclamation:", error);
+              Alert.alert(
+                "Error",
+                error.message || "Failed to delete reclamation. Please try again."
+              );
+            } finally {
+              setLoading(false);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   const handleCancelReclamation = async (id) => {
     Alert.alert(
       "Cancel Reclamation",
@@ -161,8 +212,7 @@ const ReclamationScreen = () => {
           style: "destructive",
           onPress: async () => {
             try {
-              // You might want to implement an API call to cancel the reclamation
-              // For now, we'll just update the local state
+              // Update local state to show as canceled
               setReclamations((prev) =>
                 prev.map((item) =>
                   item.id === id
@@ -170,6 +220,9 @@ const ReclamationScreen = () => {
                     : item
                 )
               );
+              
+              // Optional: You might want to call an API to update the status to canceled
+              // await updateReclamationStatus(id, 'canceled');
             } catch (error) {
               Alert.alert("Error", "Failed to cancel reclamation");
             }
@@ -225,6 +278,7 @@ const ReclamationScreen = () => {
     const statusConfig = getStatusConfig(item.status);
     const isExpanded = expandedItems[item.id];
     const canCancel = item.status === "in_progress";
+    const canDelete = item.status === "completed" || item.status === "canceled";
 
     return (
       <View style={styles.reclamationCard}>
@@ -281,6 +335,16 @@ const ReclamationScreen = () => {
               </TouchableOpacity>
             )}
 
+            {canDelete && (
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDeleteReclamation(item.id)}
+              >
+                <Ionicons name="trash" size={16} color="#F44336" />
+                <Text style={styles.deleteButtonText}>Delete reclamation</Text>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity
               style={styles.viewDetailsButton}
               onPress={() => handleViewDetails(item)}
@@ -313,7 +377,7 @@ const ReclamationScreen = () => {
           <Text style={styles.errorSubText}>{error}</Text>
           <TouchableOpacity
             style={styles.retryButton}
-            onPress={() => window.location.reload()}
+            onPress={() => fetchReclamations()}
           >
             <Text style={styles.retryButtonText}>Retry</Text>
           </TouchableOpacity>
@@ -605,6 +669,7 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingTop: 0,
     gap: 10,
+    flexWrap: "wrap",
   },
   cancelButton: {
     flexDirection: "row",
@@ -618,6 +683,22 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   cancelButtonText: {
+    color: "#F44336",
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  deleteButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#F44336",
+    backgroundColor: "#fff",
+    gap: 6,
+  },
+  deleteButtonText: {
     color: "#F44336",
     fontSize: 14,
     fontWeight: "500",
