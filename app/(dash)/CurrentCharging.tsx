@@ -87,25 +87,20 @@ const CurrentChargingScreen = () => {
       if (!response) {
         return ("No active charging session found");
       }
-
-     
-    
-   
-
     // On peut stocker le sessionId directement dans reservation
     setReservation({ ...response, sessionId } as any);
 console.log("aa",reservation)
-      const start = new Date(response.startsAt);
-      const end = new Date(response.expiresAt);
-      const now = new Date();
+      const start = dayjs.utc(response.startsAt).local();
+      const end = dayjs.utc(response.expiresAt).local();
+      const now = dayjs().local();
 
       // Calculate total session duration in seconds
-      const totalSeconds = Math.floor((end.getTime() - start.getTime()) / 1000);
+      const totalSeconds = Math.floor((end.diff(start, "second")) / 1000);
       setTotalDuration(totalSeconds);
 
       // Calculate elapsed time in seconds
       const elapsedSeconds = Math.floor(
-        (now.getTime() - start.getTime()) / 1000
+        (now.diff(start, "second")) / 1000
       );
       setTimeElapsed(formatTime(elapsedSeconds));
 
@@ -131,10 +126,10 @@ console.log("aa",reservation)
     if (!reservation || totalDuration <= 0) return;
 
     const interval = setInterval(() => {
-      const now = new Date();
-      const start = new Date(reservation.startsAt);
+      const now = dayjs().local();
+      const start = dayjs.utc(reservation.startsAt).local();
       const elapsedSeconds = Math.floor(
-        (now.getTime() - start.getTime()) / 1000
+        (now.diff(start, "second")) / 1000
       );
 
       // Calculate new battery level
